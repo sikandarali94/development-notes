@@ -1,6 +1,6 @@
 # Execution Contexts and Lexical Environments
 
-### 
+
 
 ### Syntax Parsers, Execution Contexts and Lexical Environments
 
@@ -17,11 +17,7 @@
 
 * In Javascript one of the base execution contexts is the Global execution context. This execution context creates a Global Object and the variable 'this.
 
-
-
 ![](/assets/Global Execution Diagram Context.png)
-
-
 
 * In the browser the Global Object is the window object.
 * Code or variables that aren't inside a function are Global, meaning they are accessible anywhere within the Javascript code.
