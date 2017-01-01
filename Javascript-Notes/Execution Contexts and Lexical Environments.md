@@ -48,9 +48,13 @@
 * **Invocation**: It just means running a function in Javascript, this is done by using a parentheses, \(\).
 * When you invoke a function in Javascript a new execution context is created and put on top of the stack.
 
+![](/assets/Execution Stack Diagram.png)
 
+* When `b` is finish it will pop off the stack, then `a` will run and finish then pop off the stack, and then finally the Global will run and therefore the execution stack will be complete. This is all during the execution phase.
 
- 
+### Functions, Context, and Variable Environments
+
+* **Variable Environment**: Where the variables live and how they relate to each other in memory.
 
 ---
 
