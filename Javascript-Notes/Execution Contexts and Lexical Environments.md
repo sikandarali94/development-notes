@@ -34,6 +34,24 @@
 * When Javascript sets a variable to undefined it doesn't mean that the variable doesn't exist. It simply means that the variable is not set to a value.
 * It is important to let Javascript set a variable to undefined rather than writing: `a = undefined; //Legal Javascript.` It helps when debugging the code.
 
+### Code Execution
+
+* In the execution phase -- after variable names and functions as a whole are placed into memory during the creation phase -- Javascript runs your code line by line.
+
+### Single Threaded, Synchronous Execution
+
+* **Single Threaded**: One command is being executed at a time. In a browser many things are being executed at the same time, but in our perspective Javascript is being executed in a single-threaded manner.
+* **Synchronous**: One at a time. Within Javascript it is not only one at a time, but in order.
+
+### Function Invocation and The Execution Stack
+
+* **Invocation**: It just means running a function in Javascript, this is done by using a parentheses, \(\).
+* When you invoke a function in Javascript a new execution context is created and put on top of the stack.
+
+
+
+ 
+
 ---
 
 The main credit for these notes goes to Anthony Alicea. He has a great set of courses which can be found at, [https://www.udemy.com/user/anthonypalicea/](https://www.udemy.com/user/anthonypalicea/)
