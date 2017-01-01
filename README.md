@@ -1,3 +1,4 @@
-# My Awesome Book
+# Development-Notes
 
-This file file serves as your book's preface, a great place to describe your book's content and ideas.
+During my journey on web development I've made extensive notes on some very important ideas, primarily Javascript, Angular and Node. This repository will serve to preserve these notes digitally rather than having them scrolled in notebooks.
+
