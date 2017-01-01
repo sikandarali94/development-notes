@@ -77,9 +77,10 @@ a();
 * Javascript cares about the lexical environment when it comes to the outer reference that every execution context gets. That is why when we ask for a variable while running a line of code within any particular execution context, if it can't find that variable, it will look at the outer reference and go look for variables there. Therefore in the line of code below it will log `myVar` as `1` because lexically `b()` is sitting within the Global execution context.
 
 ```js
-/*
-    This function b() sits lexically in Global. We say its Lexical Environment is Global
-*/
+//This function b() sits lexically in Global. We say its lexical environment is Global.
+function b() {
+    
+}
 ```
 
 ---
