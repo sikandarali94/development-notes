@@ -1,7 +1,5 @@
 # Execution Contexts and Lexical Environments
 
-
-
 ### Syntax Parsers, Execution Contexts and Lexical Environments
 
 * **Syntax Parser**: A program that reads your code and determines what it does and if its grammar is valid e.g. compilers and interpreters.
@@ -21,6 +19,12 @@
 
 * In the browser the Global Object is the window object.
 * Code or variables that aren't inside a function are Global, meaning they are accessible anywhere within the Javascript code.
+
+### The Execution Context \(Creation and 'Hoisting'\)
+
+* The execution context is created in two phases. The first phase is called the creation phase; it sets up the Global object, the 'this' variable, the outer environment, and setup memory space for variables and functions 'hoisting.'
+
+
 
 ---
 
