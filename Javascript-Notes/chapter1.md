@@ -26,7 +26,7 @@
 
 ![](/assets/Creation Phase Diagram.png)
 
-* A function in its **entirety **is placed into the memory space, including the code inside it during the creation phase. During the creation phase variable names are placed into the memory space; it creates a placeholder for the variable called **undefined**. It is only during the execution phase that variable assignments are placed into memory.
+* A function in its **entirety** is placed into the memory space, including the code inside it during the creation phase. During the creation phase variable names are placed into the memory space; it creates a placeholder for the variable called **undefined**. It is only during the execution phase that variable assignments are placed into memory.
 
 
 
