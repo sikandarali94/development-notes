@@ -28,7 +28,11 @@
 
 * A function in its **entirety** is placed into the memory space, including the code inside it during the creation phase. During the creation phase variable names are placed into the memory space; it creates a placeholder for the variable called **undefined**. It is only during the execution phase that variable assignments are placed into memory.
 
+### Javascript and 'undefined'
 
+* **Hoisting**: Variables Setup \(and set equal to 'undefined'\) and Functions Setup.
+* When Javascript sets a variable to undefined it doesn't mean that the variable doesn't exist. It simply means that the variable is not set to a value.
+* It is important to let Javascript set a variable to undefined rather than writing: `a = undefined; //Legal Javascript.` It helps when debugging the code.
 
 ---
 
