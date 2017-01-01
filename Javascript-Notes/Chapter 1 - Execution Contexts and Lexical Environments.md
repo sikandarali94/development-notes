@@ -56,6 +56,21 @@
 
 * **Variable Environment**: Where the variables live and how they relate to each other in memory.
 
+```js
+function b() {
+    var myVar; //The variable environment for this myVar is b().
+}
+
+function a() {
+    var myVar = 2; //The variable environment for this myVar is a().
+}
+
+var myVar = 1; //The variable environment for this myVar is Global.
+a();
+```
+
+* Every execution context has its own variable environment.
+
 ---
 
 The main credit for these notes goes to Anthony Alicea. He has a great set of courses which can be found at, [https://www.udemy.com/user/anthonypalicea/](https://www.udemy.com/user/anthonypalicea/)
