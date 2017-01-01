@@ -93,9 +93,17 @@ a();
 
 * **Scope**: Where a variable is available in your code, and if its truly the same variable, or a new copy.
 
-* In ES6 they are introducing a new way 
+* In ES6 they are introducing a new way to declare variable, and that is called **let**.
 
-
+```js
+if (a > b) {
+    /*
+        If one tries to use the variable c before the let statement is executed the computer 
+        won't allow us to access it even though it is in memory. This is called "block scoping".
+    */
+    let c = true;
+}
+```
 
 ---
 
