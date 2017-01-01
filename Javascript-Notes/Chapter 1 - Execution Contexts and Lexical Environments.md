@@ -79,9 +79,23 @@ a();
 ```js
 //This function b() sits lexically in Global. We say its lexical environment is Global.
 function b() {
-    
+    console.log(myVar); //It will log myVar as 1.
 }
+
+function a() {
+    var myVar = 2;
+    b();
+}
+
+var myVar = 1;
+a();
 ```
+
+* **Scope**: Where a variable is available in your code, and if its truly the same variable, or a new copy.
+
+* In ES6 they are introducing a new way 
+
+
 
 ---
 
