@@ -88,8 +88,35 @@ function a() {
 }
 
 var myVar = 1;
-a();
+a()
 ```
+
+* **Scope**: Where can I access a variable?
+
+* **Scope Chain**: The chain where Javascript searches for a variable within the outer environment references of the execution context where it sits lexically, and the outer environment of that execution context where that sits lexically, until it reaches Global where its outer environment reference is empty.
+
+```js
+function a() {
+    function b() {
+        /*
+            Logs out 2 to the console because the lexical environment of b() here 
+            is a(), and myVar is declared as 2 in there. 
+        */
+        console.log(myVar);
+    }
+    var myVar = 2;
+    b();
+}
+a();
+/*
+    b() gives Reference Error because the b() function's lexical environment is not
+    in Global but in a().
+*/
+b();
+
+```
+
+### Scope, ES6 and let
 
 * **Scope**: Where a variable is available in your code, and if its truly the same variable, or a new copy.
 
@@ -104,6 +131,21 @@ if (a > b) {
     let c = true;
 }
 ```
+
+### Asynchronous Callbacks
+
+* **Asynchronous**: More than one at a time.
+* Javascript is synchronous, however the Javascript engine does not exist by itself. The engine exists within the browser. Within the browser the rendering engine, the HTTP request, and so forth are all running at the same time. While the Javascript engine is synchronous the browser is asynchronous.
+
+![](/assets/The Browser Diagram.jpg)
+
+* When we make an asynchronous callback what the Javascript engine is doing is telling the browser to run another program within itself while the Javascript engine keeps running. Effectively the browser is running things asynchronously while the Javascript engine remains synchronous.
+* Apart from the execution stack Javascript also has an event queue.
+
+![](/assets/Execution Stack and Event Queue Diagram.jpg) 
+
+* When the execution stack is empty, meaning it has run all the execution contexts, it then looks at the event queue to see if any event has been triggered. If it has then it executes those functions that are associated after the event has been triggered. The browser is the one that is putting the events asynchronously on the event queue, therefore, when the execution stack is complete Javascript then checks the event queue and runs the associated functions synchronously and so forth.
+* **Event Loop**: The continuous check that Javascript does for something to be added to the event queue after the execution stack has been completed.
 
 ---
 
