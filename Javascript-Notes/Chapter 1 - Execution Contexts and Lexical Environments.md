@@ -6,7 +6,7 @@
 * **Lexical Environment**: Where something sits physically in the code you write. 'Lexical' means 'having to do with words or grammar'. A lexical environment exists in programming languages in which **where** you write something is important.
 * **Execution Context**: A wrapper to help manage the code that is running. There are lots of lexical environments. Which one is currently running is managed via execution contexts. It can contain things beyond what we've written in our code. 
 
-### Name-Value Pairs and Objects
+### Name-Value Pairs and Objects \(Conceptual\)
 
 * **Name-Value Pair**: A name which maps to a unique value. The name may be defined more than once, but only can have one value in any given context. That value may be more name-value pairs.
 * **Object**: A collection of name-value pairs. The simplest definition when talking about Javascript. 
@@ -28,7 +28,7 @@
 
 * A function in its **entirety** is placed into the memory space, including the code inside it during the creation phase. During the creation phase variable names are placed into the memory space; it creates a placeholder for the variable called **undefined**. It is only during the execution phase that variable assignments are placed into memory.
 
-### Javascript and 'undefined'
+### Javascript and 'undefined' \(Conceptual\)
 
 * **Hoisting**: Variables Setup \(and set equal to 'undefined'\) and Functions Setup.
 * When Javascript sets a variable to undefined it doesn't mean that the variable doesn't exist. It simply means that the variable is not set to a value.
@@ -38,7 +38,7 @@
 
 * In the execution phase -- after variable names and functions as a whole are placed into memory during the creation phase -- Javascript runs your code line by line.
 
-### Single Threaded, Synchronous Execution
+### Single Threaded, Synchronous Execution \(Conceptual\)
 
 * **Single Threaded**: One command is being executed at a time. In a browser many things are being executed at the same time, but in our perspective Javascript is being executed in a single-threaded manner.
 * **Synchronous**: One at a time. Within Javascript it is not only one at a time, but in order.
