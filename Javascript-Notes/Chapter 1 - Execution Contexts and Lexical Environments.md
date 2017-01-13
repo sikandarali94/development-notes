@@ -1,6 +1,6 @@
 # Execution Contexts and Lexical Environments
 
-### Syntax Parsers, Execution Contexts and Lexical Environments
+### Syntax Parsers, Execution Contexts and Lexical Environments \(Conceptual\)
 
 * **Syntax Parser**: A program that reads your code and determines what it does and if its grammar is valid e.g. compilers and interpreters.
 * **Lexical Environment**: Where something sits physically in the code you write. 'Lexical' means 'having to do with words or grammar'. A lexical environment exists in programming languages in which **where** you write something is important.
@@ -113,7 +113,6 @@ a();
     in Global but in a().
 */
 b();
-
 ```
 
 ### Scope, ES6 and let
@@ -142,7 +141,7 @@ if (a > b) {
 * When we make an asynchronous callback what the Javascript engine is doing is telling the browser to run another program within itself while the Javascript engine keeps running. Effectively the browser is running things asynchronously while the Javascript engine remains synchronous.
 * Apart from the execution stack Javascript also has an event queue.
 
-![](/assets/Execution Stack and Event Queue Diagram.jpg) 
+![](/assets/Execution Stack and Event Queue Diagram.jpg)
 
 * When the execution stack is empty, meaning it has run all the execution contexts, it then looks at the event queue to see if any event has been triggered. If it has then it executes those functions that are associated after the event has been triggered. The browser is the one that is putting the events asynchronously on the event queue, therefore, when the execution stack is complete Javascript then checks the event queue and runs the associated functions synchronously and so forth.
 * **Event Loop**: The continuous check that Javascript does for something to be added to the event queue after the execution stack has been completed.
