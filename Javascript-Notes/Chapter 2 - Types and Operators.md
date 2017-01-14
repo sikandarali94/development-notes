@@ -18,5 +18,35 @@
 * **Operator**: A special function that is syntactically written differently. Generally, operators take two parameters and return one result.
 * When we write: `var a = 3 + 4;` The `+` operator actually is a function that takes the parameters 3 and 4 and returns the sum of the numbers. The ability is called **infix notation**, meaning the function call \(which is `+`\) sits between the two parameters.
 
+### Operators Precedence and Associativity
+
+* **Operator Precedence**: Which operator function gets called first. Functions are called in order of precedence \(HIGHER precedence wins\).
+* **Associativity**: What order operator functions get called in: left-to-right or right-to-left. This is when functions have the **same** precedence.
+* When we assign a variable value to another Javascript does that and returns the assigned value. For example:
+
+```js
+var a = 2, b = 3, c = 4;
+
+a = b = c;
+
+/* 
+   With b = c, here it assigns the value of c to b and returns 4, the assigned value. 
+   So it would be a = 4 by the end (right-to-left associativity).
+*/
+```
+
+![](/assets/FireShot Capture 33 - Operator precedence - JavaScript I MDN_ - https___developer.mozilla.org_en_d.jpg)
+
+### Coercion
+
+* **Coercion**: Converting a value from one type to another. This happens quite often in Javascript because it's dynamically typed.
+* When we write, `var a = 1 + '2';` it gives us `'12'`, a string. We say here that `1` was **coerced** into a string due to the `'2'`.
+
+### Comparison Operators
+
+* Coercing a `false` to a number, it becomes `0`. Coercing a `true` to a number, it becomes `1`.
+* Sometimes values get coerced into something that we don't expect. For example, coercing `undefined` to a number gives us `NaN` \(Not a Number\). The unexpected thing is that `undefined` did not ultimately coerce to an actual number. However, coercing a `null` to a number becomes a `0`. So, these two behaviours are very unexpected.
+* Coercion, although powerful, can be dangerous. For example, `false == 0`, will give us `true` and this is not what we want and can cause bugs. However, when we write `null == 0` it gives us `false` even though we learnt that `null` being coerced into a number will give us `0`, and in this case it didn't do that. This is one of the negative sides to Javascript. When we write "" == 0 it gives us true, and when we write "" == false it asls
+
 
 
