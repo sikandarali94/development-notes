@@ -35,9 +35,9 @@ a = b = c;
 */
 ```
 
-![](/assets/FireShot Capture 33 - Operator precedence - JavaScript I MDN_ - https___developer.mozilla.org_en_d.jpg)
+![](/assets/Operator Precedence Table.jpg)
 
-### Coercion
+### Coercion \(Conceptual\)
 
 * **Coercion**: Converting a value from one type to another. This happens quite often in Javascript because it's dynamically typed.
 * When we write, `var a = 1 + '2';` it gives us `'12'`, a string. We say here that `1` was **coerced** into a string due to the `'2'`.
@@ -46,7 +46,78 @@ a = b = c;
 
 * Coercing a `false` to a number, it becomes `0`. Coercing a `true` to a number, it becomes `1`.
 * Sometimes values get coerced into something that we don't expect. For example, coercing `undefined` to a number gives us `NaN` \(Not a Number\). The unexpected thing is that `undefined` did not ultimately coerce to an actual number. However, coercing a `null` to a number becomes a `0`. So, these two behaviours are very unexpected.
-* Coercion, although powerful, can be dangerous. For example, `false == 0`, will give us `true` and this is not what we want and can cause bugs. However, when we write `null == 0` it gives us `false` even though we learnt that `null` being coerced into a number will give us `0`, and in this case it didn't do that. This is one of the negative sides to Javascript. When we write "" == 0 it gives us true, and when we write "" == false it asls
+* Coercion, although powerful, can be dangerous. For example, `false == 0`, will give us `true` and this is not what we want and can cause bugs. However, when we write `null == 0` it gives us `false` even though we learnt that `null` being coerced into a number will give us `0`, and in this case it didn't do that. This is one of the negative sides to Javascript. When we write `"" == 0` it gives us true, and when we write `"" == false` it also gives us `true`. Another weird thing is when we write `null < 1` it gives us `true` even though when we write `null == 0` it gives us `false`. This makes our code difficult to anticipate.
+* Therefore, it is recommended to use strict equality \( `===` \). This compares two values but doesn't try to coerce them. This is a life saver! Similarly we have strict inequality \( `!==` \). Therefore don't use == unless we consciously want coercion or we definitely know we are comparing same value types and coercion will definitely not happen. Use, however, `===` and `!==` by default!
+
+![](/assets/Sameness Comparison Table.jpg)
+
+### Existence and Booleans
+
+* When we coerce `undefined` to a boolean it becomes `false`. When we coerce a `null` to a boolean it becomes `false`. When we coerce an empty string \( `""` \) to a boolean it also becomes `false`.
+* If we put a value within the brackets of an if statement it will try and coerce to a boolean. For example:
+
+```js
+var a;
+
+if (a) {
+/*
+    No matter what value is a it will try and coerce it to a boolean. If a is either
+    undefined, null or an empty string the if statement will fail.    
+*/
+}
+```
+
+* Therefore we can use the if statement to our advantage to see if a variable has a value. However, the caveat is that if the variable has a `0` stored it will be coerced by the if statement to `false`. To get away from this caveat we can do something like this:
+
+```js
+var a;
+
+a = 0;
+
+/*
+    Below, the strict equal has a higher precedence than the ||, therefore the strict
+    equal operation will run first, and evaluate to true. Then we'll have "false || 
+    true" and this will also evaluate to true.     
+*/
+if (a || a === 0) {
+    console.log('Something is there.');
+}
+```
+
+### Default Values
+
+* In this code:
+
+```js
+function greet(name) {
+    /*
+        Even though we haven't passed a parameter when we called the greet() function
+        the variable name will be set to a default value of undefined. The + operator
+        coerced undefined of name to the string 'undefined'.
+    */
+    console.log('Hello ' + name + '!');
+}
+
+greet();
+```
+
+* The next version of Javascript called ES6 will introduce syntax to set the default value. In current Javascript code there is a neat trick to do that:
+
+```js
+function greet(name) {
+    name = name || '<Your name here>';
+    console.log('Hello ' + name + '!');
+}
+```
+
+* To explain the behaviour of the last code example, when we do `undefined || 'some string'`, it returns `'some string'` through coercion, because `'some string'` coerces to `true` and the `||` operator returns whatever is `true`, even if it is coerced. If we do `"First String" || "Second String"` it will return `"First String"` because it was the first thing that was coerced to `true`. When we coerce `undefined` to a boolean it returns `false` and when we coerce `'some string'` it will return `true`. So the `||` operation will return the first value that coerces to `true` when being coerced into a boolean. Similarly, `0 || 1` will return `1` because coercing a `0` to a boolean will return `false`. The reason `||` operation is evaluated first before the `=` operation is because `||` is a higher precedent operation.
+
+### Default Values \(Framework\)
+
+* When we include multiple script files in HTML using &lt;script&gt; Javascript doesn't create separate execution contexts for the script files, rather it stacks the content of the files on top of one another and executes them as they were a single file.
+* If we have the same variable name across two js files that we included in our HTML, the variable will behave on how the code is run if the two js files were stacked on top of one another, and run as a single js file.
+
+
 
 
 
