@@ -7,6 +7,7 @@
 
 ![](/assets/Object Diagram.png)
 
+* Concerning 0x001, 0x002, 0x003, 0x004 an object will have an address in memory and it will have references to different properties and methods.
 * In this example:
 
 ```js
@@ -15,13 +16,34 @@ var person = new Object;
 person["first name"] = "Sikandar";
 /*
     The square brackets is an operator. Below, it creates a space in memory that name,
-    "last name" and the object will get an address of location of the name.
+    "last name", and the object will get an address of location of the name.
 */
 person["first name"] = "Ali";
 
 var firstNameProperty = "first name";
 console.log(person);
 console.log(person[firstNameProperty]);
+```
+
+* In the code `console.log(person.firstname);` The dot is known as the dot operator.The parameter it takes here is `person` and `firstname` since an operator is a function. We don't have to put string quotes around `firstname` because dot operator function already recognizes that `firstname` is meant to be a string that we typed.
+* We can store an object within an object and set properties and methods inside it. For example:
+
+```js
+var person = new Object();
+//This creates an object called address within the object person.
+person.address = new Object();
+person.address.street = "111 Main St.";
+```
+
+* It is recommended to use the dot operator when dealing with objects, unless use the `[]` operator when we are dealing with dynamic strings, meaning strings that can be changed and we use a variable to store that dynamic string.
+
+### Objects and Object Literals
+
+* The recommended way to create an object is using an object literal, like this: `var person = {};` The `{}` is not an operator! What is hapenning is that the Javascript engine when parsing and it comes across a curly brace, and its not part of an if statement or a for loop or something, it assumes we are creating an object.
+* We can set properties or methods of an object by just using the object literal:
+
+```js
+var person = {firstname:'Sikandar', lastname: 'Ali'};
 ```
 
 
