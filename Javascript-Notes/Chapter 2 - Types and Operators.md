@@ -115,7 +115,14 @@ function greet(name) {
 ### Default Values \(Framework\)
 
 * When we include multiple script files in HTML using &lt;script&gt; Javascript doesn't create separate execution contexts for the script files, rather it stacks the content of the files on top of one another and executes them as they were a single file.
-* If we have the same variable name across two js files that we included in our HTML, the variable will behave on how the code is run if the two js files were stacked on top of one another, and run as a single js file.
+* If we have the same variable name across two js files that we included in our HTML, the variable will behave on how the code is run if the two js files were stacked on top of one another, and run as a single js file. For example:
+
+![](/assets/JS Files Stacked Diagram.jpg)
+
+* This can be fixed with the coercion trick: `window.libraryName = window.libraryName || "Lib 2";` in lib2.js.
+* That coersion trick is found in a lot of frameworks. This in itself could cause a lot of errors, however, it is likely the developer's fault for colliding with the name, that he or she is using.
+
+
 
 
 
