@@ -122,5 +122,7 @@ function greet(name) {
 * This can be fixed with the coercion trick: `window.libraryName = window.libraryName || "Lib 2";` in lib2.js.
 * That coersion trick is found in a lot of frameworks. This in itself could cause a lot of errors, however, it is likely the developer's fault for colliding with the name, that he or she is using.
 
+---
 
+The main credit for these notes goes to Anthony Alicea. He has a great set of courses which can be found at, [https://www.udemy.com/user/anthonypalicea/](https://www.udemy.com/user/anthonypalicea/)
 
