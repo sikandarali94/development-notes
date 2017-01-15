@@ -277,7 +277,7 @@ console.log(d);
 
 ### Objects, Functions and 'this'
 
-![](/assets/Execution Context ('this' variable) Diagram.jpg)
+![](/assets/Execution Context ('this' variable) Diagram.jpg\)
 
 * When you simply create a function like this in the Global lexical environment: `function a() { console.log(this); }`, and we invoke the function the `this` variable \(or keyword\) will point to the Global object which is called `window`. This is even true for an anonymous function like this, where lexical environment is Global:
 
@@ -405,9 +405,130 @@ console.log(arguments[0]);
 function greet(firstname, lastname, language, ...other) {}
 ```
 
-### Function Overloading
+### Function Overloading \(Framework\)
 
-* Function Overloading; the ability is not available 
+* Function Overloading; the ability is not available in Javascript as functions are objects. Function overloading is the idea that we can have a function of the same name that has different numbers of parameters.
+* A pattern in Javascript allows us to call a function but necessarily does not have to pass a certain parameter. It is this:
+
+```js
+function greet(firstname, lastname, language) {}
+
+//We don't have to pass the language parameter due to this pattern.
+function greetEnglish(firstname, lastname) {
+    greet(firstname, lastname, 'en');
+}
+
+function greetSpanish(firstname, lastname) {
+    greet(firstname, lastname, 'es');
+}
+
+//Much simpler function call rather than remembering English is 'en'.
+greetEnglish('Sikandar', 'Ali');
+greetSpanish('Sikandar', 'Ali');
+```
+
+### Syntax Parsers \(Conceptual\)
+
+* The Javascript Engine in the browser is a syntax parser. It goes through the code **character** by **character** making assumption, stating various rules, and can even make changes to our code before its executed.
+
+### Automatic Semicolon Insertion \(Dangerous\)
+
+* Semicolons are optional in core Javascript. This is because the Javascript engine does something for us. If it sees one character at a time it knows what to expect. If it sees that we are finishing a line and we press carriage return, the syntax parser says, 'Hey, you can't continue the next line', then automatically inserts a semicolon at the end of the line. So if it expects that there should be a semicolon at a particular place it automatically puts it there.
+* However, we don't want Javascript making that decision for us. That is why we should put our own semicolons where appropriate.
+* Here is an example of how a flaw can creep in our code when we don't put a semicolon ourselves and the Javascript engine makes the decision for us:
+
+```js
+function getPerson() {
+    /*
+        Javascript automatically puts a semicolon after return even though we want
+        to return an object. This is caused by the carriage return. 
+    */
+    return
+    {
+        firstname: 'Sikandar'
+    }
+}
+
+console.log(getPerson()); //This will log undefined.
+```
+
+* To fix the above problem we must put the opening curly brace on the same line of return, like this:
+
+```js
+return {
+    firstname: 'Sikandar'
+}
+```
+
+### Whitespace \(Framework\)
+
+* **Whitespace**: Invisible characters that create literal 'space' in our written code. These are carriage returns, tabs, and spaces.
+* Javascript is very liberal with whitespace. Here is an example of how liberal it can be:
+
+### Immediately Invoked Function Expressions \(IIFEs\)
+
+* This is an example of IIFEs:
+
+```js
+var greeting = function(name) {
+    console.log('Hello ' + name);
+/*
+    The round brackets here means that the function is immediately invoked after it
+    is created. When it is immediately invoked the greeting variable will store the
+    value returned by the function and not the function itself. 
+*/
+}();
+```
+
+* If we write:
+
+```js
+/*
+    This will return an error [ unexpected token ( ] because the Javascript engine
+    expects this to have a name given to the function after 'function'. This means
+    the Javascript engine expects this to be a statement because of its syntax
+    rules. 
+*/
+function(name) {
+    return 'Hello ' + name;
+}
+```
+
+* When we wrap this intended expression in round brackets like this:
+
+```js
+/*
+    Javascript understands that we are intending to write a function expression 
+    rather than a function statement. Because Javascript Engine has a rule that if 
+    the first thing we write on a new line is 'function' then it must be a 
+    statement. By wrapping it in round brackets we have explained it to circumvent 
+    this rule and accept it as an expression. This makes sense because we only use 
+    round brackets to enclose an expression and not a statement.
+*/
+(function(name) {
+    return 'Hello ' + name;
+});
+```
+
+* We can use the point above to write an IIFE like this:
+
+```js
+(function(name) {
+    var greeting = 'Hello';
+    console.log(greeting + ' ' + name);
+    
+//We can invoke it outside the brackets like this: " )(); ".
+}());
+```
+
+* An advantage of this is that we can invoke functions without having to store them or their returned value. We will see this repeatedly in every framework of Javascript out there.
+
+### IIFEs and Safe Code \(Framework\)
+
+* What goes behind the scenes of an IIFE is that during the creation phase a Global Execution Context is created, but because the IIFE is an expression the function expression is not placed in the Global Execution Context. It is only during the execution phase when it runs the IIFE that the function is placed in the Global Execution Context. We know when a function is run a new Execution Context is created and is placed at the top of the Execution Stack. Any variables declared in the anonymous function is not placed into the Global Execution Context but the Execution Context of the anonymous function. That is what makes this very handy.
+* Here is a visual representation of what we discussed above:
+
+![](/assets/IIFE Execution Context Diagram.png)
 
 
 
