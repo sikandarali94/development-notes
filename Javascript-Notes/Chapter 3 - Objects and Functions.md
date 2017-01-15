@@ -78,9 +78,147 @@ greet({firstname: 'Jane', lastname: 'Austen'});
 var greet = 'Hello!';
 var greet = 'Hola!';
 
-//This creates a clash.
+//This logs 'Hola!' and overrides 'Hello!' because it clashed.
 console.log(greet);
+
+var english = {};
+var spanish = {};
+
+/*
+    This avoids collision. Essentially the english and spanish objects becomes
+    namespaces so the greet won't clash with one another.
+*/
+english.greet = 'Hello!';
+spanish.greet = 'Hola!';
 ```
+
+* When we write: `english.greetings.greet = 'Hello!;` -- when we don't already have greetings as an object in the `english` object -- it gives us the error: _Cannot set property 'greet' of undefined_. This is because the associativity of the dot operator is left to right. So, when it says `english.greetings` it evaluates it to `undefined`. Then what it is essentially saying is `undefined.greet`, which would obviously give an error since `undefined` is not an object. To solve this error we have to write: `english.greetings = {};` beforehand and then write `english.greetings.greet = 'Hello!;`
+
+### JSON and Object Literals
+
+* A common mistake is to think JSON \(Javascript Object Notation\) and object literals are the exact same thing. JSON is just inspired by Object Literal Notation.
+* Data had to be sent over the internet in files. What they landed on for a while was the XML file. Here is an example of an XML file:
+
+```
+<object>
+    <firstname>Mary</firstname>
+    <isAProgrammer>true</isAProgrammer>
+</object>
+```
+
+* However, the issue with this was that data would be unnecessarily big because of the letters in the tag. So they looked at the Object Literal Notation and realized that the syntax is a more efficient way to send data over the internet. For example look how smaller this is:
+
+```
+{
+    "firstname": 'Mary'
+    "isAProgrammer":true
+}
+```
+
+* That is why JSON is the most popular way to send data over the internet. One difference is that properties have to be wrapped in quotes in JSON.
+* So JSON is technically a subset of the object literal syntax. Meaning that is JSON valid is Object Literal Notation valid. However it is not necessarily true vice versa.
+* Javascript has some built-in functionality to convert JSON into an object, and vice versa. Here is an example of both:
+
+```js
+var objectLiteral = {
+    firstname: 'Mary'
+    isAProgrammer: true
+}
+
+//Convert object literal to JSON syntax
+console.log(JSON.stringify(objectLiteral));
+//Convert JSON syntax to object literal.
+JSON.parse('{"firstname": "Mary", "isAProgrammer":true}');
+```
+
+* JSON also doesn't allow functions as values.
+
+### Functions Are Objects
+
+* In Javascript functions are **objects**. These are called first-called functions.
+* **First Class Functions**: Everything you can do with other types you can do with functions. That means you can assign them to variables, pass them around, or create them on the fly.
+* A function is a special type of object, which means you can attach a primitive, an object, or even another function:
+
+![](/assets/Function As Object Diagram.png)
+
+* Regarding '"Invocable" \(\)', it is special for functions because a function can be called. Regarding 'CODE', it is a special property. Therefore the code that we write is just another property. Regarding 'NAME', it is a special property of a function.
+* To prove functions are objects, here is an example:
+
+```js
+function greet() {
+    console.log('hi');
+}
+
+/*
+    In many other languages you just can't do this! However if we were to write:
+    console.log(greet); it will just print out the function. If we were to however
+    write: console.log(greet.language);, the console will log 'english'.
+*/
+greet.language = 'english';
+```
+
+* Here is a visual representation of what we did above:
+
+![](/assets/Function Invocation Diagram.png)
+
+### Function Statements and Function Expressions
+
+* **Expression**: A unit of code that results in a value. It doesn't have to save a variable. For example: `a = 3;` and `1 + 2;` are both expressions because they both return `3`.
+* An if statement is a statement and doesn't return a value even though we put a expression in between the round brackets. So a statement just does work and an expression returns a value.
+* In Javascript because a function is an object we can have both function statements and function expressions.
+* An example of a function statement is:
+
+```js
+function greet() {
+    console.log('hi');
+}
+```
+
+* An example of a function expression is:
+
+```js
+/*
+    This all evaluates to an object being created and that is why it is an expression.
+    Here it is putting this object into memory and pointing that anonymous variable at
+    the address.
+*/
+var anonymousGreet = function() {
+    console.log('hi');
+}
+```
+
+![](/assets/Anonymous Function Diagram.png)
+
+* Regarding 'CODE' to invoke this property of the anonymous function we write: anonymousGreet\(\); Regarding 'NAME' since we already have a variable pointing to the address in memory of where the object is located we don't need a name for the function.
+* Because functions are objects we can pass them as parameters into other functions. Here is an example:
+
+```js
+function log(a) {
+    /*
+        This will then log to the console:
+            function() {
+                console.log('hi');
+            }
+    */
+    console.log(a);
+    /*
+        We can even invoke the anonymous function because it is stored in the
+        parameter variable as a.
+    */
+    a();
+}
+
+//Here we are invoking the log() function.
+log(function () {
+    console.log('hi');    
+});
+```
+
+* First class functions allow us to do a new kind of programming called functional programming.
+
+### By Value vs By Reference
+
+* When we talk about by value and by reference we are both talking about variables.
 
 
 
