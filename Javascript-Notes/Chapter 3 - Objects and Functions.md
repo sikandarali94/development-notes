@@ -216,9 +216,17 @@ log(function () {
 
 * First class functions allow us to do a new kind of programming called functional programming.
 
-### By Value vs By Reference
+### By Value vs By Reference \(Conceptual\)
 
 * When we talk about by value and by reference we are both talking about variables.
+
+![](/assets/By Value Diagram.png)
+
+
+
+![](/assets/By Reference Diagram.png)
+
+
 
 
 
