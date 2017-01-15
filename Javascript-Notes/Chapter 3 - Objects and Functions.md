@@ -226,7 +226,47 @@ log(function () {
 
 ![](/assets/By Reference Diagram.png)
 
+* Here is a code example of **by-value**:
 
+```js
+var a = 3;
+var b;
+
+b = a;
+/*
+    Changing the value of a to 2 will not change the value of b to 2 because b
+    is pointing to a different address that contains a copy of the original 
+    value of a (=3) before it was changed.
+*/
+a = 2;
+```
+
+* Here is a code example of **by-reference**:
+
+```js
+var c = {greetings:'hi'};
+var d;
+
+/*
+    Equals operator sees that c is an object so it points d to the same 
+    location in memory where c object is stored. Therefore if you change the
+    property of greetings to another value, say: c.greetings = 'hello'; this
+    would be the same as writing d.greetings = 'hello'; because both point
+    to the same object stored in memory.
+*/
+d = c;
+```
+
+* **Mutate**: To change something. "Immutable" means it **can't be changed**.
+* **By reference **works even when they are passed as parameters. Here is an example:
+
+```js
+function changeGreeting(obj) {
+    obj.greeting = 'Hola'; //mutate
+}
+d = { greeting : 'hello' };
+changeGreeting(d);
+```
 
 
 
