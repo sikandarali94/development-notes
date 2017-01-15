@@ -222,8 +222,6 @@ log(function () {
 
 ![](/assets/By Value Diagram.png)
 
-
-
 ![](/assets/By Reference Diagram.png)
 
 * Here is a code example of **by-value**:
@@ -266,7 +264,150 @@ function changeGreeting(obj) {
 }
 d = { greeting : 'hello' };
 changeGreeting(d);
+
+/*
+    This will log d as: {greeting : 'Hola'} because obj parameter
+    variable will point to the same location in memory where the 
+    d object is stored.
+*/
+console.log(d);
 ```
+
+* The equal operator sets up memory space \(new address\), so in the above example if we later write: `d = {greetings : 'Bonjour!'}` this will create a new memory space and put the object in there and `d` will point to the memory space where the new object is stored. So doing `d.greeting = 'Hello';` mutates the object whereas doing `d = {greetings : 'Bonjour!'}` creates a new object and stores it at a different memory address and `d` points to that address.
+
+### Objects, Functions and 'this'
+
+![](/assets/Execution Context ('this' variable) Diagram.jpg)
+
+* When you simply create a function like this in the Global lexical environment: `function a() { console.log(this); }`, and we invoke the function the `this` variable \(or keyword\) will point to the Global object which is called `window`. This is even true for an anonymous function like this, where lexical environment is Global:
+
+```js
+var b = function() {
+    // the 'this' variable points to Global object.
+    console.log(this);
+}
+```
+
+* Here is an example of creating a method in Javascript:
+
+```js
+var c = {
+    name : 'The c object',
+    log: function() {
+            /*
+                    The this keyword placed within the method of c object will point to
+                    the c object itself. We can even say: this.name = 'Updated';
+            */
+            console.log(this);
+    }
+}
+
+// We can invoke the method like this.
+c.log();
+```
+
+* Here is a weird way Javascript works with the `this` keyword: 
+
+```js
+var c = {
+    name : 'The c object',
+    log : function() {
+            var setname = function (newname) {
+                    /*
+                            Rather than this modifying the name property of the c object,
+                            because we expect the 'this' keyword here to point to the c
+                            object, instead creates a variable called name in Global
+                            which holds the value 'Updated again!'. Many people believe
+                            that shouldn't be the behaviour.
+                    */
+                    this.name = newname;
+            }
+```
+
+* The way we can fix this is by writing: `var self = this;` within the log method. Because this is an object `self` will point to the same address where the `c` object is stored. Instead of then using `this` keyword we can use the `self` variable, and this wouldn't cause `self` to accidentally point to the Global object within a function within the log method of the `c` object as we saw in the dot point before.
+
+### Arrays - Collections of Anything \(Conceptual\)
+
+* We can create an array using the array literal syntax like this:
+
+```js
+//The square brackets is the array literal syntax
+var arr = [];
+
+//This is the non-preferred way.
+var arr = new Array();
+```
+
+* Arrays in Javascript are special compared to many other languages because Javascript is dynamically typed, whereas in many others we can only have an array of a certain type like integer or string. We can mix and match in Javascript; say, we can have a number, then a boolean, then an object, then even a function.
+* Say we have an array like this:
+
+```js
+var arr = [
+    1,
+    false,
+    {
+        name: 'Sikandar',
+        address: '111 Main St.'
+    },
+    /*
+        We can invoke this function and pass a parameter the value of the name
+        property of the object stored in the array through this expression:
+        arr[3](arr[2].name);
+    */
+    function(name) {
+        var greeting = 'Hello';
+        console.log(greeting + name);
+    },
+    "hello"
+];
+```
+
+### 'arguments' and spread
+
+* In frameworks we'll come across arguments quite often in the source code.
+* When a function is run it creates the execution context as shown below:
+
+![](/assets/Execution Context Functions Diagram.jpg)
+
+* **Arguments**: The parameters we pass to a function. Javascript gives us a keyword of the same name which contains them all, like this:
+
+```js
+function greeting (firstname, lastname, language) {
+    console.log(arguments);
+}
+
+greeting("Sikandar", "Ali", "en");
+```
+
+* Concerning, _console.log\(arguments\);_, this will give us an array-like \(array-like is set up by Javascript that behaves and acts like an array but isn't an array\) set that holds the arguments like this: _\[ _'John', 'Doe', 'en' _\]_. The slanted square brackets indicate that this is an array-like.
+* Even though arguments isn't exactly an array it behaves like one:
+
+```js
+//Like an array we can check the length of the array-like.
+if (arguments.length === 0) {
+    console.log('Missing Parameters!');
+}
+
+//Like an array we can grab specific values using an index.
+console.log(arguments[0]);
+```
+
+* As years go on arguments will become deprecated, meaning they will still be around it just won't be the best way to do something. The thing to replace arguments in the future is called a spread parameter.
+* A spread allows us to do this:
+
+```js
+/*
+    If we pass parameters to this function beyond the main parameters like 
+    this: greet('Sikandar', 'Ali', 'es', '111 main street', 'sydney');
+    '111 main street' and 'sydney' will be put into an array called other
+    (because we wrote ...other in the function parameter definition).
+*/
+function greet(firstname, lastname, language, ...other) {}
+```
+
+### Function Overloading
+
+* Function Overloading; the ability is not available 
 
 
 
