@@ -46,5 +46,27 @@ person.address.street = "111 Main St.";
 var person = {firstname:'Sikandar', lastname: 'Ali'};
 ```
 
+* We can pass an object as a parameter into a function on the fly. For example:
+
+```js
+var Siky = {
+    firstname:'Sikandar',
+    lastname: 'Ali',
+    address: {
+        street:'111 Main St.',
+        city:'New York',
+        state:'NY'
+    };
+
+function greet(person) {
+    console.log('Hi ' + person.firstname);
+}
+
+//This will log to the console, 'Hi Sikandar'
+greet(Siky);
+
+
+```
+
 
 
