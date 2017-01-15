@@ -65,7 +65,21 @@ function greet(person) {
 //This will log to the console, 'Hi Sikandar'
 greet(Siky);
 
+//We can also create an object on the fly within function invocation
+greet({firstname: 'Jane', lastname: 'Austen'});
+```
 
+### Faking Namespaces \(Framework\)
+
+* **Namespace**: A container for variables and functions. Typically to keep variables and functions with the same name separate. The problem is Javascript doesn't have namespaces, but there is a way to fake it using objects.
+* Here is an example on how to fake it:
+
+```js
+var greet = 'Hello!';
+var greet = 'Hola!';
+
+//This creates a clash.
+console.log(greet);
 ```
 
 
