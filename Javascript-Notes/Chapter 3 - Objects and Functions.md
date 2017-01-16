@@ -662,7 +662,22 @@ fs2[2]();
 function makeGreeting(language) {
     return function(firstname, lastname) {}
 }
+
+/*
+    The closure of this function points to the space in memory
+    where the value of the language variable is 'en'. The one
+    below it its closure points to the space in memory where
+    the value of the language variable is 'es'. Therefore when
+    these functions are invoked they will have different
+    execution contexts.
+*/
+var greetingEnglish = makeGreeting('en');
+var greetSpanish = makeGreeting('es');
 ```
+
+* Creating functions from other functions are called function factories.
+
+
 
 
 
