@@ -654,7 +654,7 @@ fs2[1]();
 fs2[2]();
 ```
 
-### Function Factories
+### Function Factories \(Framework\)
 
 * When we execute functions that are the same but are invoked at separate occasions their execution contexts are different, meaning the variables they point to sit in separate area of memory. For example:
 
@@ -706,8 +706,8 @@ tellMeWhenDone(function() {
 
 ### call\(\), apply\(\), and bind\(\)
 
-* Functions have access to special methods which are built in. They are call\(\), apply\(\) and bind\(\). The three methods have all to do with the 'this' variable.
-* Here is an example of using the bind\(\) method:
+* Functions have access to special methods which are built in. They are `call()`, `apply()` and `bind()`. The three methods have all to do with the `'this'` variable.
+* Here is an example of using the `bind()` method:
 
 ```js
 var person = {
@@ -738,6 +738,73 @@ logName();
 ```js
 var logName = function(lang1, lang2) {/*some code*/}.bind(person);
 ```
+
+* `logName.call(person);` This calls the function logName and sets the 'this' variable to the person object. It works the same as `logName();` but lets us control what the 'this' variable would be. We could also pass it parameters like this:
+
+```js
+//First parameter is for 'this' variable, the second is first parameter...
+logName.call(person,'en','es');
+```
+
+* `logName.apply(person);` does exactly the same thing as the call method except that it takes parameters as an array, like this: `logName.apply(person, [ 'en', 'es']);` and not like: `logName.apply(person, 'en', 'es');` as this would give us a 'Type Error: Arguments list has wrong type'.
+* We could use these three methods to an immediately invoked function. Here is an example:
+
+```js
+(function(lang1, lang2) {
+//Notice we don't have () here.
+}).apply();
+```
+
+* These methods are useful in **function borrowing**. Here is an example:
+
+```js
+var person = {
+    firstname: 'Sikandar',
+    lastname: 'Ali',
+    getFullName: function() {
+                    var fullname = this.firstname + ' ' + this.lastname;
+    }
+}
+
+var person2 = {
+    firstname: 'Zane'
+    lastname: 'Ali'
+}
+
+/*
+    Here we invoke the function of the person object but use the
+    variable of firstname and lastname of person2. Secondly, we
+    don't need to type out the function again in person2 we can
+    just function borrow getFullName() from person object.
+*/
+person.getFullName.apply(person2);
+```
+
+* The `bind()` method especially is useful in 'function currying'. Here is an example:
+
+```js
+function multiply(a,b) {
+    return a * b;
+}
+
+/*
+    The first parameter sets the this variable. In this case
+    we are personally setting the parameter 'a' to the value
+    of 2.
+*/
+var multipleByTwo = multiply.bind(this, 2);
+```
+
+* **Function Currying**: Creating a copy of a function but with some preset parameters. This is very useful in mathematical situations.
+
+### Functional Programming
+
+* Javascript is more inline with **Functional Programming**. These are languages that have first-class functions. Javascript is most powerful when we code it in terms of functions.
+* We use functions to limit repetition. First-class functions let you avoid repetition to a larger extent than programming languages that do not have first-class functions.
+
+### Functional Programming \(Part 2\)
+
+* These advanced concepts help us in **'open source education'**, which means opening the source code of frameworks and understanding how they work. Underscore.js is one library which is great for 'open source education'.
 
 
 
