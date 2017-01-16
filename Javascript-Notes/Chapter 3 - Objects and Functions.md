@@ -677,7 +677,48 @@ var greetSpanish = makeGreeting('es');
 
 * Creating functions from other functions are called function factories.
 
+### Closures and Callbacks
 
+* When we use the inbuilt function of setTimeout that we are actually using closures. Here is an example:
+
+```js
+function sayHiLater() {
+    var greeting = 'Hi!';
+    setTimeout(function() {
+        //This will log 'Hi!'
+        console.log(greeting);
+    }, 3000);
+}
+sayHiLater();
+```
+
+* **Callback Function**: A function we give to another function, to be run when the other function is finished. So the function we call \(i.e. invoke\), 'calls back' by calling the function you gave it when it finishes. Here is an example:
+
+```js
+function tellMeWhenDone(callback) {
+    var a = 1000;
+    callback();
+}
+tellMeWhenDone(function() {
+    console.log('I am done!');
+});
+```
+
+### call\(\), apply\(\), and bind\(\)
+
+* Functions have access to special methods which are built in. They are call\(\), apply\(\) and bind\(\). The three methods have all to do with the 'this' variable.
+* Here is an example of using the bind\(\) method:
+
+```js
+var person = {
+var fullname = this.firstname + ' ' + this.lastname;
+                    return fullname;
+                 }
+}
+var logName = function(lang1, lang2) {
+
+}
+```
 
 
 
