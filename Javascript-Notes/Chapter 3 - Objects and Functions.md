@@ -808,5 +808,3 @@ var multipleByTwo = multiply.bind(this, 2);
 
 
 
-
-
