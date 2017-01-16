@@ -711,14 +711,35 @@ tellMeWhenDone(function() {
 
 ```js
 var person = {
-var fullname = this.firstname + ' ' + this.lastname;
+    getFullName: function() {
+                    var fullname = this.firstname + ' ' + this.lastname;
                     return fullname;
                  }
 }
-var logName = function(lang1, lang2) {
 
+var logName = function(lang1, lang2) {
+    console.log('Logged: ' + this.getFullName());
 }
+
+/*
+    This method returns a new function. So it actually makes a copy of
+    logName(); and sets up this new function object -- this new copy --
+    so that whenever its run, its execution context is created, the
+    Javascript engine sees that person was created with this bind and
+    sets up hidden things in the background. When the Javascript engine
+    sets up the 'this' variable it decides it must be the person object.
+*/
+var logPersonName = logName.bind(person);
+logName();
 ```
+
+* We could even do this:
+
+```js
+var logName = function(lang1, lang2) {/*some code*/}.bind(person);
+```
+
+
 
 
 
