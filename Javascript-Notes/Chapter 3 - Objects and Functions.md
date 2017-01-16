@@ -533,6 +533,7 @@ function(name) {
 * The reason we mentioned above -- about what makes an IIFE handy when the variables inside it are not placed in the Global Execution Context -- is because if we have two script files stacked in HTML atop one another we won't have a clash of variables are not placed inside the Global Execution Context. This makes code safe.
 
 * In a great deal of libraries and functions if we open their source code the very first thing we will see at the top os the opening of IIFE and at the bottom the ending of the IIFE.
+
 * To pass a reference to the Global object we can do something like this:
 
 ```js
@@ -542,6 +543,122 @@ function(name) {
     //window is the global variable.
 }(window, 'John'));
 ```
+
+### Understanding Closures
+
+* Closures are essential to gain a deep understanding of Javascript. However, it is notoriously difficult to understand.
+* Here is an example of invoking a function that is returned by a function:
+
+```js
+function greet(whattosay) {
+    return function(name) {
+              console.log(whattosay + ' ' + name);
+           }
+}
+
+/*
+    This makes sense because greet('Hi') returns a function and that
+    function is invoked due to ('Tony') parameter. This will log 'Hi Tony'.
+*/
+greet('Hi')('Tony');
+
+/*
+    How is it possible that when we state sayHi('Tony'); it remembers that
+    whattosay stored 'Hi' even though the greet function has popped off
+    the execution stack. This is possible because of closures.
+*/
+var sayHi = greet('Hi');
+sayHi('Tony');  
+```
+
+* When an execution context has popped off the execution stack the memory space of the variable environment for that execution context still exists. Eventually Javascript will clear that memory through a process known as garbage collection, but for our purposes in the running code it still exists. In the code above when greet execution context has popped off the execution stack the whattosay variable still exists in memory. The interesting thing is that when we invoke the function expression that sayHi points to, within its outer environment the reference to the whattosay variable still exists. So when we mention the whattosay variable within the anonymous function, that sayHi points to, and it doesn't have the variable within its variable environment then it goes up the scope chain and finds whattosay within the references inside its outer environment. In this way we say the Execution Context has **closed in** its outer variable, the variables it would have a reference to anyway even though the execution context has gone. This phenomenon is known as a closure. Here is a visual representation of this:
+
+![](/assets/Closure Diagram.png)
+
+* The above representation is after the greet\(\) execution context has popped off and the anonymous function that sayHi points to is invoked. This closure is created. This was the representation in the beginning:
+
+![](/assets/Closure Beginning Diagram.png)
+
+### Understanding Closures \(Part 2\)
+
+* Here is a classical example code when the topic of closures is brought up:
+
+```js
+function buildFunctions() {
+    var arr = [];
+    /*
+        i is known as a free variable. A free variable is a variable that is
+        outside a function but that we have access to.
+    */
+    for (var i = 0; i < 3; i++) {
+        arr.push(
+            /*
+                When it is storing the function it stores i as an address
+                to memory space. It doesn't invoke the function and reveal
+                the value that i points to in the memory space at that
+                point.
+            */
+            function() {
+                console.log(i);
+            }
+        )
+    }
+    
+    return arr;
+}
+
+var fs = buildFunctions();
+
+/*
+    That is why here when the stored functions are invoked they then
+    look for i up the scope chain and find the reference. The value
+    that i references in memory is the value 3, the final value when
+    buildFunctions()'s execution context is popped off the execution
+    stack.
+*/
+fs[0]();
+fs[1]();
+fs[2]();
+```
+
+* To get the result of 1,2,3 and 3,3,3, we can do this:
+
+```js
+function buildFunctions() {
+    var arr = [];
+    for (var i = 0; i < 3; i++) {
+        arr.push(
+            /*
+                We are using an IIFE with the parameter i to invoke
+                the function that returns a function, but because j
+                is being created several times the function that it
+                returns is the variable j in each separate function
+                pointing to addresses separately that has 0, 1 and 
+                2 stored. So when it is invoked it will print out
+                0, 1, and 2 because the j's in the functions each
+                point to a different address in memory.
+            */
+            (function(j) {
+                return function() {
+                    console.log(j);
+                }
+            }(i))
+        )
+    }
+    return arr;
+}
+
+var fs2 = buildFunctions2();
+fs2[0]();
+fs2[1]();
+fs2[2]();
+```
+
+### Function Factories
+
+* When we execute functions that are the same but are invoked at separate occasions their execution contexts are different, meaning the variables they point to sit in separate area of memory. For example:
+
+
 
 
 
