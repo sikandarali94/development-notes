@@ -568,7 +568,7 @@ greet('Hi')('Tony');
     the execution stack. This is possible because of closures.
 */
 var sayHi = greet('Hi');
-sayHi('Tony');  
+sayHi('Tony');
 ```
 
 * When an execution context has popped off the execution stack the memory space of the variable environment for that execution context still exists. Eventually Javascript will clear that memory through a process known as garbage collection, but for our purposes in the running code it still exists. In the code above when greet execution context has popped off the execution stack the whattosay variable still exists in memory. The interesting thing is that when we invoke the function expression that sayHi points to, within its outer environment the reference to the whattosay variable still exists. So when we mention the whattosay variable within the anonymous function, that sayHi points to, and it doesn't have the variable within its variable environment then it goes up the scope chain and finds whattosay within the references inside its outer environment. In this way we say the Execution Context has **closed in** its outer variable, the variables it would have a reference to anyway even though the execution context has gone. This phenomenon is known as a closure. Here is a visual representation of this:
@@ -603,7 +603,7 @@ function buildFunctions() {
             }
         )
     }
-    
+
     return arr;
 }
 
@@ -658,7 +658,11 @@ fs2[2]();
 
 * When we execute functions that are the same but are invoked at separate occasions their execution contexts are different, meaning the variables they point to sit in separate area of memory. For example:
 
-
+```js
+function makeGreeting(language) {
+    return function(firstname, lastname) {}
+}
+```
 
 
 
