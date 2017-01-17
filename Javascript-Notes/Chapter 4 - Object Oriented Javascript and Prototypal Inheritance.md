@@ -114,5 +114,7 @@ var jim = {
 _.extend(john, jane, jim);
 ```
 
+---
 
+The main credit for these notes goes to Anthony Alicea. He has a great set of courses which can be found at, [https://www.udemy.com/user/anthonypalicea/](https://www.udemy.com/user/anthonypalicea/)
 

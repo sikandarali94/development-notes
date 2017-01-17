@@ -806,5 +806,7 @@ var multipleByTwo = multiply.bind(this, 2);
 
 * These advanced concepts help us in **'open source education'**, which means opening the source code of frameworks and understanding how they work. Underscore.js is one library which is great for 'open source education'.
 
+---
 
+The main credit for these notes goes to Anthony Alicea. He has a great set of courses which can be found at, [https://www.udemy.com/user/anthonypalicea/](https://www.udemy.com/user/anthonypalicea/)
 
