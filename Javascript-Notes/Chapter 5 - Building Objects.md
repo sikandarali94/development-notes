@@ -49,5 +49,7 @@ Person.prototype.fullName = function() {
 }
 ```
 
+* When we construct an object the object's prototype would point to Person.prototype. This is terribly confusing only because the name is given as 'prototype' when it isn't actually the prototype of the function at all, but the prototype of the objects created using the function as a constructor.
+
 
 
