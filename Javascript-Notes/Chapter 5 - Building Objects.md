@@ -20,7 +20,7 @@ function Person() {
 ```
 
 * When we write `new` keyword it immediately sets up an empty object like `var a = {}`. So when we write `var john = new Person();` what this actually does is that the `new` keyword sets up an empty object and the `this` assignment expression in `Person` point to this empty object and create the properties of `firstname` and `lastname`. As long as a function does not have a `return` statement the `new` keyword will return an object. The assignment expression of `var john = new Person();` also invokes the `Person()` function.
-* The Person\(\) is called a function constructor, because it constructs an object.
+* The `Person()` is called a function constructor, because it constructs an object.
 * We can even set parameters for a function constructor. Here is an example:
 
 ```js
@@ -50,6 +50,27 @@ Person.prototype.fullName = function() {
 ```
 
 * When we construct an object the object's prototype would point to Person.prototype. This is terribly confusing only because the name is given as 'prototype' when it isn't actually the prototype of the function at all, but the prototype of the objects created using the function as a constructor.
+
+* Therefore if we updated the prototype object even after an object is created it will update the prototype of the objects, because they point to the prototype property of the function constructor that constructed them. Here is an example:
+
+```js
+function Person() {
+    this.firstname = 'Sikandar';
+    this.lastname = 'Ali';
+}
+
+var siky = new Person();
+
+/*
+    siky will get the getFullName function in its prototype because
+    it points to Person.prototype for its own prototype.
+*/
+Person.prototype.getFullName = function() {
+    return this.firstname + ' ' + this.lastname;
+}
+```
+
+* If we were to put the `getFullName()` into the function constructor it will copy the method into the objects created using the function constructor. If we had 1000 objects constructed from the function it will copy the method into each one of them taking up lots of memory. However, if we put the function method in the prototype property all objects will point to the method rather than copy the method. Therefore we will only have one copy sitting in the prototype with objects pointing to it, thus saving a lot of memory
 
 
 
