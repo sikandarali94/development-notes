@@ -119,7 +119,7 @@ var b = new Number(3);
 a === b;
 ```
 
-* The strict equal comparison operator will return `false `because `a` stores a primitive value while `b` stores an object created using the built-in Number function as a constructor. If we compared it with a normal equal it will return `true`. This is dangerous because by using built-in function constructors for creating primitives we aren't really creating primtives and strange things can happen when comparison operators are used.
+* The strict equal comparison operator will return `false`because `a` stores a primitive value while `b` stores an object created using the built-in Number function as a constructor. If we compared it with a normal equal it will return `true`. This is dangerous because by using built-in function constructors for creating primitives we aren't really creating primtives and strange things can happen when comparison operators are used.
 * That is why in general we shouldn't use built-in functions as constructors and instead use literals to store primitive values.
 * If we use a lot of date work it is recommended to use the library framework named **Moment.js**.
 * These built-in function constructors should be meant for conversion. Here is an example:
@@ -128,7 +128,7 @@ a === b;
 var c = Number("3");
 ```
 
-### Arrays and for..in
+### Arrays and for..in \(Dangerous\)
 
 * Arrays are objects in Javascript. The index values are actually property names and makes them different to arrays in other languages. So this: `a = ['Sikandar', 'Ali'];` is actually:
 
@@ -141,7 +141,51 @@ a {
 
 * In this example:
 
+```js
+Array.prototype.myCustomFeature = 'cool';
+var arr = ['John', 'June', 'Jim'];
+for (var prop in arr) {
+    /*
+        This will log: 0: John
+                       1: Jane
+                       2: Jim
+                       myCustomFeature: cool
+        
+        That is why we shouldn't use for..in to loop through an array because it loops
+        through the properties within the prototype object.
+    */
+    console.log(prop + ': ' + arr[prop]);
+}
+```
 
+### Object.create and Pure Prototypal Inheritance
+
+* Object.create creates an empty object with its prototype pointing to whatever object we passed. Here is an example:
+
+```js
+var person = {
+    firstname: 'Sikandar'
+}
+/*
+    The sikandar object will be empty but its prototype will point to person object, so:
+    sikandar.firstname will say 'Sikandar'.
+*/
+var sikandar = Object.create(person);
+```
+
+* This is known as Pure Prototypal Inheritance. If there was a method in person object and there was this.firstname and we put in a property of firstname in sikandar object like this: sikandar.firstname = 'siky'; then this.firstname will point to 'siky' rather than 'Sikandar'. Even then the prototype is pointing to person because if we mutated a method in person it would affect the prototype of every object created using person.
+* However Object.create is available only in newer browsers. To support older browsers we can use something called a polyfill.
+* **Polyfill**: Code that adds a feature which the engine may lack.
+* There is an example code of a polyfill within the course that should be in the notes.
+* The most powerful aspect of Pure Prototypal Inheritance is that we can mutate the object \(that is being pointed to by other objects that were created by it\) on the fly.
+
+### ES6 and Classes
+
+* ES6 is called ECMAScript 6 or ECMAScript 2015.
+* Classes are used to define the structure of an object. ES6 will have classes but 'implemented in a different way.'
+* In other programming languages class isn't an object, it is a definition that tells what an object should look like and is only an object when the new keyword is used. In Javascript a class is an **object**. The **extends** keyword sets the prototype of the object.
+* **Syntactic Sugar**: A different way to type something that doesn't change how it works under the hood.
+* The new class syntax does not change how objects are created and treated in Javascript. It still uses Pure Prototypal Inheritance.
 
 
 
