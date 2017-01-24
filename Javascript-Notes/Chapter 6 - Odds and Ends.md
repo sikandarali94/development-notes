@@ -14,6 +14,11 @@ console.log(typeof a);
 
 * If we use `typeof` on array it returns the string `'object'`. It is not so useful. Instead we should use: `Object.prototype.toString.call(d);` This returns `[object Array]` and is more useful.
 * The keyword `'instanceof'` tells us if any objects down the prototype chain are a certain object that we specify. For example: `e instanceof Person;` tells us if `Person` object is somewhere down the prototype chain of `e`. It either returns `true` or `false`. 
+* One thing that has been a bug in Javascript since forever is when we do: `typeof null;` it says it is an `'object'`. It has been around for too long to fix.
+* If we do a `typeof` of a function it returns the string `'function'` which is specific and useful.
 
+### Strict Mode
+
+* 
 
 
