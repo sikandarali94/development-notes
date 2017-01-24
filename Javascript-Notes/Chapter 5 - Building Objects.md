@@ -187,5 +187,7 @@ var sikandar = Object.create(person);
 * **Syntactic Sugar**: A different way to type something that doesn't change how it works under the hood.
 * The new class syntax does not change how objects are created and treated in Javascript. It still uses Pure Prototypal Inheritance.
 
+---
 
+The main credit for these notes goes to Anthony Alicea. He has a great set of courses which can be found at, [https://www.udemy.com/user/anthonypalicea/](https://www.udemy.com/user/anthonypalicea/)
 
