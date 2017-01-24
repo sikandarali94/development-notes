@@ -19,6 +19,13 @@ console.log(typeof a);
 
 ### Strict Mode
 
-* 
+* There is a way to tell Javascript to parse our code in a stricter way than its usually liberal way. This can help us prevent errors in certain circumstances. To use this write `"use strict";` at the very top of the Javascript code. For example: `persom = {};` Javascript will create a variable called `persom` that points to an empty object even though we didn't write: `var persom = {};`. This can be avoided in strict mode, and it will give us an Uncaught Reference Error.
 
+* We can also write `"use strict";` at the top of a function and Javascript will parse the code inside the function specifically in strict mode.
+
+* Not every Javascript Engine uses strict mode  the same way. They don't all agree on the same rules. In MDN there is an article which talks about how strict mode is implemented.
+
+---
+
+The main credit for these notes goes to Anthony Alicea. He has a great set of courses which can be found at, [https://www.udemy.com/user/anthonypalicea/](https://www.udemy.com/user/anthonypalicea/)
 
