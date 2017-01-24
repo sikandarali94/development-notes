@@ -150,7 +150,7 @@ for (var prop in arr) {
                        1: Jane
                        2: Jim
                        myCustomFeature: cool
-        
+
         That is why we shouldn't use for..in to loop through an array because it loops
         through the properties within the prototype object.
     */
@@ -173,8 +173,8 @@ var person = {
 var sikandar = Object.create(person);
 ```
 
-* This is known as Pure Prototypal Inheritance. If there was a method in person object and there was this.firstname and we put in a property of firstname in sikandar object like this: sikandar.firstname = 'siky'; then this.firstname will point to 'siky' rather than 'Sikandar'. Even then the prototype is pointing to person because if we mutated a method in person it would affect the prototype of every object created using person.
-* However Object.create is available only in newer browsers. To support older browsers we can use something called a polyfill.
+* This is known as Pure Prototypal Inheritance. If there was a method in `person` object and there was `this.firstname` and we put in a property of `firstname` in `sikandar` object like this: `sikandar.firstname = 'siky';` then `this.firstname` will point to `'siky'` rather than `'Sikandar'`. Even then the prototype is pointing to person because if we mutated a method in person it would affect the prototype of every object created using person.
+* However `Object.create` is available only in newer browsers. To support older browsers we can use something called a polyfill.
 * **Polyfill**: Code that adds a feature which the engine may lack.
 * There is an example code of a polyfill within the course that should be in the notes.
 * The most powerful aspect of Pure Prototypal Inheritance is that we can mutate the object \(that is being pointed to by other objects that were created by it\) on the fly.
@@ -183,7 +183,7 @@ var sikandar = Object.create(person);
 
 * ES6 is called ECMAScript 6 or ECMAScript 2015.
 * Classes are used to define the structure of an object. ES6 will have classes but 'implemented in a different way.'
-* In other programming languages class isn't an object, it is a definition that tells what an object should look like and is only an object when the new keyword is used. In Javascript a class is an **object**. The **extends** keyword sets the prototype of the object.
+* In other programming languages class isn't an object, it is a definition that tells what an object should look like and is only an object when the `new` keyword is used. In Javascript a class is an **object**. The **extends** keyword sets the prototype of the object.
 * **Syntactic Sugar**: A different way to type something that doesn't change how it works under the hood.
 * The new class syntax does not change how objects are created and treated in Javascript. It still uses Pure Prototypal Inheritance.
 
