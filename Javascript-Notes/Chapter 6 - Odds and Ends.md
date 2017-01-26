@@ -1,3 +1,5 @@
+# Odds and Ends
+
 ### Initialization
 
 * For big initialization it is helpful either to store a large object or array in a JSON type without literally typing it in the code, or use a good IDE to color highlight the data to make it easier to read and figure out the structure.
