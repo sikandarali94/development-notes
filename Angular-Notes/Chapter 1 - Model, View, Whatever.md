@@ -96,7 +96,7 @@ var myApp = angular.module('myApp', []);
     - controller takes in a function as the second parameter.
 */
 myApp.controller('mainController', function() {
-    
+
 });
 ```
 
@@ -116,11 +116,13 @@ myApp.controller('mainController', function() {
         special work.
     -->
     <div ng-controller = "mainController">
-    
+
     </div>
     <!-- Some Code Below -->
 </html> 
 ```
 
+---
 
+The main credit for these notes goes to Anthony Alicea. He has a great set of courses which can be found at, [https://www.udemy.com/user/anthonypalicea/](https://www.udemy.com/user/anthonypalicea/)
 
