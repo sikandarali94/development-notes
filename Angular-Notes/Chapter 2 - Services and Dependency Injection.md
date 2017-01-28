@@ -191,5 +191,68 @@ myApp.controller('mainController', function($resource) {
 
 ### Arrays and Functions \(Javascript\)
 
+* We can put a function as an element of an array, and can even invoke it. Here is an example:
+
+```js
+var things = 
+    [1, '2', function() {
+        alert('Hello!');
+    }];
+//We can invoke a function within an array.
+things[2]();
+console.log(things);
+```
+
+### Dependency Injection and Minification
+
+* Angular uses two ways to do dependency injection. The second does dependency injection and minification of Javascript files.
+* **Minification**: Shrinking the size of files for faster download. We normally add '.min' to the name of the file. So 'file.js' becomes 'file.min.js' so we can tell the difference.
+* A good minifier changes the name of variables to the smallest name possible, but this can be an issue with Angular, as minifiers will try to change the name of services like `$scope` and `$log` to some single character name. Therefore Angular will not know in the case of:
+
+```js
+/*
+    Angular will not know that we want $scope and $log injected
+    in the case of a and b. Note that this after a minifier has
+    been used to it.
+*/
+myApp.controller("mainController",function(a,b){b.info(a)});
+```
+
+* The above code will give us an error then. Therefore we should use a different method for dependency injection because in the real world we want to push minified JS files so websites can land faster.
+* Here is the method we should always use so to avoid errors after the JS has been minified:
+
+```js
+/*
+    The first items in the array list are the parameters we want
+    to pass into the function and we write them as strings so a
+    minifier doesn't alter the value of the strings.
+*/
+myApp.controller('mainController', ['$scope', '$log', function($scope, $log) {
+    $log.info($scope);
+}]);
+```
+
+* The above code will minified to:
+
+```js
+myApp.controller("mainController",["$scope","$log",function(a,b){b.info(a)}]);
+```
+
+* So Angular looks at the $scope and $log string items in the array and determines the position of a and b parameters in the function. It understands that it needs to inject the $scope service as the a parameter and inject the $log service as the b parameter. Therefore it looks at the first item and determines it as the first parameter. It looks at the second item  in the array and determines it as the second parameter, and so on and so forth.
+* This method of the AngularJS controller doesn't look at the name of the parameters in the function but looks at the first string items in the array to determine what must be injected. Here is an example:
+
+```js
+myApp.controller('mainController', ['$scope', '$log', function($log, $scope) {
+    /*
+        This will log the $log object because the second string
+        item is '$log' and the second parameter is named 
+        $scope, so Angular injects the $log service into the
+        $scope variable. That is why in this method order
+        matters.
+    */
+    console.log($scope);
+}]);
+```
+
 
 
