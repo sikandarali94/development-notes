@@ -93,5 +93,19 @@ myApp.controller('myController', ['$scope', '$filter', function($scope,$filter) 
 }]);
 ```
 
+* Here is a visual representation of what we did in the code above:
+
+![](/assets/Model, View, Whatever Example Diagram.png)
+
+* Regarding the question mark we need to understand what this middle piece that make Angular **MV\***.
+
+### The Event Loop \(Javascript\)
+
+* Event Loop is where Javascript continuously checks for events that occur in the browser and if there is code we wrote associated with a certain event Javascript then runs that code, and keeps looking for further events. This is basically known as the Event Loop.
+
+### Watchers and the Digest Loop
+
+
+
 
 
