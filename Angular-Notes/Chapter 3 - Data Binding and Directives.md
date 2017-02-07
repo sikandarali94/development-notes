@@ -254,11 +254,16 @@ $scope.alertClick = function() {
 <div ng-cloak>{{ name }}</div>
 ```
 
-* We can look for more directives like these at: https://docs.angularjs.org/api and look under **directive** heading in the list.
+* We can look for more directives like these at: [https://docs.angularjs.org/api](https://docs.angularjs.org/api) and look under **directive** heading in the list.
 
 ### The XMLHTTPRequest Object \(Javascript\)
 
-* XMLHTTPRequest object is native to the browser and was invented by Microsoft when they were building Outlook Web Access which still exists.
+* XMLHTTPRequest object is native to the browser and was invented by Microsoft when they were building Outlook Web Access which still exists. The object can go out and make internet requests on its own as part of code, as opposed to the browser doing it via going to a particular URL in the browser and refreshing the page. It is now a standard in all browsers and in Javascript. Here is an example:
+
+```js
+var rulesrequest = new XMLHttpRequest();
+rulesrequest.onreadystatechange = function() {
+```
 
 
 
