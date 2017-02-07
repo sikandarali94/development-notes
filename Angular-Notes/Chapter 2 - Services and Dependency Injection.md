@@ -254,5 +254,7 @@ myApp.controller('mainController', ['$scope', '$log', function($log, $scope) {
 }]);
 ```
 
+---
 
+The main credit for these notes goes to Anthony Alicea. He has a great set of courses which can be found at, [https://www.udemy.com/user/anthonypalicea/](https://www.udemy.com/user/anthonypalicea/)
 

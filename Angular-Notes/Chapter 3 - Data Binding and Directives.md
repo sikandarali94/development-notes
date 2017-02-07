@@ -314,7 +314,7 @@ $http.get('/api')
         is whatever data we might get from the request and status is the
         code indicating what the actual error code was so we can debug it.
         We can name data and status whatever we want.
-        
+
     */
     .error(function(data, status) {
         console.log(data);
@@ -338,5 +338,7 @@ $scope.addRule = function() {
 };
 ```
 
+---
 
+The main credit for these notes goes to Anthony Alicea. He has a great set of courses which can be found at, [https://www.udemy.com/user/anthonypalicea/](https://www.udemy.com/user/anthonypalicea/)
 
