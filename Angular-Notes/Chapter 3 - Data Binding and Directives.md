@@ -258,11 +258,84 @@ $scope.alertClick = function() {
 
 ### The XMLHTTPRequest Object \(Javascript\)
 
-* XMLHTTPRequest object is native to the browser and was invented by Microsoft when they were building Outlook Web Access which still exists. The object can go out and make internet requests on its own as part of code, as opposed to the browser doing it via going to a particular URL in the browser and refreshing the page. It is now a standard in all browsers and in Javascript. Here is an example:
+* `XMLHttpRequest` object is native to the browser and was invented by Microsoft when they were building Outlook Web Access which still exists. The object can go out and make internet requests on its own as part of code, as opposed to the browser doing it via going to a particular URL in the browser and refreshing the page. It is now a standard in all browsers and in Javascript. Here is an example:
 
 ```js
 var rulesrequest = new XMLHttpRequest();
+/*
+    This means that something has happened, the request has been made and
+    the request is finished and now run this function.
+*/
 rulesrequest.onreadystatechange = function() {
+    /*
+        4 means it is ready to go and 200 means it has found something
+        then we can do something.
+    */
+    if (rulesrequest.readyState == 4 && rulesrequest.status == 200) {
+        /*
+            This won't work as it is outside the Angular Context and so
+            we have to wrap the if statement in 
+            $scope.$apply(function(){});
+        */
+        $scope.rules = JSON.parse(rulesrequest.responseText);
+    }
+rulesrequest.open("GET", "http://localhost:54765/api", true);
+/*
+    Once this sends the request to the URL the onreadystatechange fires
+    up and runs the function.
+*/
+rulesrequest.send();
+```
+
+* This all went out asynchronously, meaning simultaneously while we were doing other things and the code went out and fired off towards the URL address and got the data back from that URL. However, we can see that `XMLHttpRequest()` is complex to use and so Angular will make this easy for us.
+
+### External Data and $http
+
+* Angular helps us wrap the difficult code in Javascript for http requests and packages it into the `$http` service.
+* Here is an example of using the $http service:
+
+```js
+//We put the URL as a string in the get parameter.
+$http.get('/api')
+    /*
+        When it successfully gets some data back it then runs the function
+        code. The result parameter is whatever data it got back, however
+        we can name it whatever we want.
+    */
+    .success(function(result) {
+        /*
+            We don't need to wrap this up in the $apply method because
+            $http is already within the Angular context.
+        */
+        $scope.rules = result;
+    })
+    /*
+        If something goes wrong trying to get it then the data parameter
+        is whatever data we might get from the request and status is the
+        code indicating what the actual error code was so we can debug it.
+        We can name data and status whatever we want.
+        
+    */
+    .error(function(data, status) {
+        console.log(data);
+    });
+```
+
+* We don't always want to 'get' data but we sometimes want to 'post' data to the server and maybe save it to a database. Here is an example:
+
+```js
+$scope.newRule = '';
+$scope.addRule = function() {
+    $http.post('/api', { newRule: $scope.newRule } )
+        .success(function(result) {
+            //This updates
+            $scope.rules = result;
+            $scope.newRule = '';
+        })
+        .error(function(data, status) {
+            console.log(data);
+        });
+};
 ```
 
 
