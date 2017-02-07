@@ -105,7 +105,159 @@ myApp.controller('myController', ['$scope', '$filter', function($scope,$filter) 
 
 ### Watchers and the Digest Loop
 
+* AngularJS is adding Event Listeners for us. It is extending the Javascript Event Loop, doing more with it, in order to automatically control the binding between the Model and the View. AngularJS adds on the Angular Context on top of the Javascript Event Loop that conforms to the Angular architecture. If we follow these patterns, for example we add something to the $scope object and display it on the page, AngularJS knows it needs to keep track of that variable\(s\), or functions. So it adds **Watchers**. Essentially there is a **Watch List** and every time we display a $scope variable or function return on the display page AngularJS automatically adds a Watcher for the Watch List. What it means is that it is keeping track of the original value and the new value every time something might have happened that changed the value. This checking for change is known as the **Digest Loop**, separate to the Javascript Event Loop, that Angular has created.
+* When we enter the Digest Loop Angular asks if anything has changed by going through every single variable in the Watch List and compares the new value to the old value. If one of the things on the Watch List has changed then it updates everywhere that is connected to it, anywhere in the DOM and anywhere in the code that is affected by that change. Then it runs one more cycle to see if by changing that has it changed anything else until all of the old values and the new values match and then it stops for the moment until the Event Loop tells us that something else should possibly be checked.
 
+** **![](/assets/Watchers and the Digest Loop Diagram.png)
+
+* Here is an example that illustrates how the watch list and digest cycle work. Please note that the handle variable is being used from the twitter example:
+
+```js
+$scope.$watch('handle', function(newValue, oldValue) {
+    console.info('Changed!');
+    console.log('Old Value: ' + oldValue);
+    console.log('New Value: ' + newValue);
+});
+```
+
+* Here is an example of the limitation of AngularJS:
+
+```js
+setTimeout(function() {
+    /*
+        Here Angular didn't check whether the handle variable change and
+        thus didn't update the DOM in the twitter handle example that we
+        created before.
+    */
+    $scope.handle = 'newtwitterhandle';
+    console.log('Scope changed!');
+}, 3000);
+```
+
+* The above conundrum is because `$scope.handle = 'newtwitterhandle';` is outside the Angular Context. It didn't realize that the `handle` variable changes and thus didn't start the Digest Loop through the Watch List. This can cause funky errors in our code.
+* One way to fix this is using the Angular $apply method like this:
+
+```js
+setTimeout(function() {
+    /*
+        The $apply method tells Angular that whatever we put inside
+        the parameter function should be added to the Angular Context.
+    */
+    $scope.$apply(function() {
+        $scope.handle = 'newtwitterhandle';
+        console.log('Scope changed!');
+    });
+}, 3000);
+```
+
+* How do we know when to add code into the $apply function parameter because Angular sometimes adds our code into the Angular Context for us and sometimes it doesn't? Specifically for the above example we can use the Angular $timeout service that does exactly as we have done with the setTimeout\(\) and $apply method. Here is how we do it:
+
+```js
+$timeout(function() {
+    $scope.handle = 'newtwitterhandle';
+    console.log('Scope changed!');
+}, 3000);
+```
+
+* The caveat to all of this is that we have to buy wholesale into AngularJS either all in or all out and this has been criticized by a lot of programmers.
+* Now we understand that Watchers and the Digest Loop binds the Model to the View. Here is a diagram:
+
+![](/assets/Complete Model and View Diagram.png)
+
+### Common Directives
+
+* **`ng-if`** directive takes in a Javascript expression that either returns true or false. Here is an example:
+
+```
+<!--
+    The 5 can also be written as a variable in the $scope object that
+    we assign a value of 5. The ng-if directive tells the DOM what to
+    do under certain circumstances.
+-->
+<div ng-if="handle.length !== 5">
+</div>
+```
+
+* When the Digest Loop happens and notices that 'handle' has changed it will notice the expression of the `ng-if` attribute and if it is no longer true AngularJS tells the browser to remove the element from the DOM that has that `ng-if` attribute expression, and puts the comment `<!-- ngIf:handle.length !== characters -->`. If it is true then Angular tells the DOM to add the element back.
+* **`ng-show`** directive shows the element if its attribute expression is true but doesn't remove the element from the DOM when the expression is `false`, instead it adds the class `ng-hide` which has the CSS rule: `display:none !important;`.
+* `ng-hide` directive does the opposite of `ng-show`. It adds the ng-hide class if its attribute expression is true and remove the `ng-hide` class if its attribute expression is `false`.
+
+* Here is an example of using the `ng-class` directive:
+
+```
+<!--
+    The value to the left of the colon is the class name that we want to add and the
+    value to the right of the colon is the expression that either returns true or 
+    false. If it is true it will add in this case the 'alert-warning' class and if
+    false it will remove this class.
+-->
+<div class="alert" ng-class="{'alert-warning': handle.length < characters}" 
+    ng-show="handle.length !== characters">
+    
+    Must be 5 characters!
+    
+</div>
+```
+
+* We can do as many of these as we want, like this:
+
+```
+<!-- These are separated by comma. -->
+ng-class="{ 'alert-warning': handle.length < characters, 'alert-danger': handle.length > characters}"
+```
+
+* If we want to display multiple elements with several different values we can use the** `ng-repeat`** directive like this:
+
+**JS**
+
+```js
+//We have to hold values in an array with objects of the same key but different values.
+$scope.rules = [
+    { rulename: "a" },
+    { rulename: "ab" },
+    { rulename: "abc" }
+];
+```
+
+**HTML**
+
+```
+<h3>Rules</h3>
+<ul>
+    <li ng-repeat="rule in rules">
+        {{ rule.rulename }}
+    </li>
+</ul>
+```
+
+* Here is an example of using the **`ng-click`** directive:
+
+**HTML**
+
+```
+<input type="button" value="Click me" ng-click="alertClick()" />
+```
+
+**JS**
+
+```js
+$scope.alertClick = function() {
+    alert("Clicked.");
+};
+```
+
+* On some computers interpolationof AngularJS kicks in a little late and for a split second we see something for example {{ name }} pop on the screen before it is interpolated. We can use the ng-cloak directive to avoid this:
+
+```js
+//ng-cloak hides the element until AngularJS has worked on it.
+<div ng-cloak>{{ name }}</div>
+```
+
+* We can look for more directives like these at: [https://docs.angularjs.org/api](https://docs.angularjs.org/api) and look under **directive** heading in the list.
+
+### The XMLHTTPRequest Object \(Javascript\)
+
+* XMLHTTPRequest object is native to the browser and was invented by Microsoft when they were building Outlook Web Access which still exists. 
 
 
 
