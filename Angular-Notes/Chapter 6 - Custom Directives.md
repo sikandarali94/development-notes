@@ -177,7 +177,85 @@ $scope.person = {
 </a>
 ```
 
+* However this can have unintended consequences. If the directive is doing things to items and elements in the $scope that we are not anticipating under those particular circumstances. See we've connected the $scope for the parent page directly to the custom directive therefore the directive can then affect the data on the parent page and maybe we are under a situation where we don't realize it's not desired.
+* So AngularJS provides a method to isolate a custom directive, the Model part of the directive, from the Model for whatever page contains the directive. This is called **isolated scope**, or **isolating the scope**.
+* Here is how we isolate the scope and also poke holes in the isolated scope to get values from the main controller Model.
 
+**app.js**
+
+```js
+myApp.directive("searchResult", function() {
+    return {
+        restrict: 'AECM',
+        templateUrl: 'directives/searchresult.html',
+        replace: true,
+        /*
+            1. By introducing the scope property we have isolated the scope
+            meaning the scope property here becomes the Model and
+            searchresult.html becomes the View. Therefore the parent page
+            cannot affect the data for this custom directive or vice versa.
+            This avoids accidents.
+        */
+        scope: {
+            /*
+                3. Since the value of the custom attribute is just text
+                we'll use a text hole for example. We are poking a hole that
+                is just text, in other words, 'Local Text Binding'. The
+                property personName is a normalized version of person-name.
+                The @ symbolizes that we poked a text hole, so @ just means
+                text. The @ symbol is one-way binding.
+            */
+            personName: "@",
+            /*
+                If we wanted to change the name of the property instead of
+                having the normalized name of the custom attribute we have
+                to reference the custom attribute as personName with @ at
+                the beginning to tell Angular it is a text hole.
+            */
+            personNameSpecial: "@personName"
+        }
+    }
+});
+```
+
+**main.html**
+
+```
+<label>Search</label>
+<input type="text" value="Doe"/>
+
+<h3>Search Results</h3>
+<div class="list-group">
+    <!--
+        2. The way we poke holes in AngularJS is through custom attributes
+        like person-name here which is normalized to personName for the
+        Model. Here we give the custom attribute an interpolated value from
+        our scope in main.html. person.name comes from the main controller
+        model.
+    -->
+    <search-result person-name="{{ person.name }}"></search-result>
+</div>
+```
+
+**search.html**
+
+```
+<a href="#" class="list-group-item">
+    <!--
+        4. We can then grab the value we grabbed through the text hole and
+        interpolate it in the directive's View.
+    -->
+    <h4 class="list-group-item-heading">{{ personName }}</h4>
+    <p class="list-group-item-text">
+        <!--
+            Here it cannot find person.address because the scope of the
+            directive we have isolated it from the scope of the main
+            controller.
+        -->
+        {{ person.address }}
+    </p>
+</a>
+```
 
 
 
