@@ -157,7 +157,7 @@ myApp.directive("searchResult", function() {
 
 ### Scope \(@, =, and other obtuse symbols\)
 
-* Anything for the Model that contains the directive the directive also has access to. In other words for example the Model for the searchResult directive in searchresult.html is also the Model for the main HTML that has ng-app = "myApp". In the Model if we define:
+* Anything for the Model that contains the directive the directive also has access to. In other words for example the Model for the `searchResult` directive in searchresult.html is also the Model for the main HTML that has `ng-app = "myApp"`. In the Model if we define:
 
 ```js
 $scope.person = {
@@ -177,7 +177,7 @@ $scope.person = {
 </a>
 ```
 
-* However this can have unintended consequences. If the directive is doing things to items and elements in the $scope that we are not anticipating under those particular circumstances. See we've connected the $scope for the parent page directly to the custom directive therefore the directive can then affect the data on the parent page and maybe we are under a situation where we don't realize it's not desired.
+* However this can have unintended consequences. If the directive is doing things to items and elements in the `$scope` that we are not anticipating under those particular circumstances. See we've connected the `$scope` for the parent page directly to the custom directive therefore the directive can then affect the data on the parent page and maybe we are under a situation where we don't realize it's not desired.
 * So AngularJS provides a method to isolate a custom directive, the Model part of the directive, from the Model for whatever page contains the directive. This is called **isolated scope**, or **isolating the scope**.
 * Here is how we isolate the scope and also poke holes in the isolated scope to get values from the main controller Model.
 
@@ -256,6 +256,67 @@ myApp.directive("searchResult", function() {
     </p>
 </a>
 ```
+
+* Now that we have poked a text hole. So we can take personName variable and now it is available to us as part of our Model, as part of our scope for our directive, for the searchresult.html View.
+
+* Here is how we pass an object from the controller's Model into the Model of a directive that has an isolated scope:
+
+**main.html**
+
+```
+<label>Search</label>
+<input type="text" value="Doe"/>
+
+<h3>Search Results</h3>
+<div class="list-group">
+    <!--
+        1. We don't write {{ person }} because that means text of the
+        object and that really doesn't make sense. We just pass the object
+        into the custom-attribute by name.
+    -->
+    <search-result person-object="person"></search-result>
+</div>
+```
+
+**app.js**
+
+```js
+myApp.directive("searchResult", function() {
+    return {
+        restrict: 'AECM',
+        templateUrl: 'directives/searchresult.html',
+        replace: true,
+        scope: {
+            /*
+                2. The equals sign tells us that this is a two-way binding
+                and we can pass an object into the directive via the 
+                personObject property on the scope. Two way binding means
+                whatever happens to the object inside this directive will
+                update the object passed in from outside. So we have to be
+                very careful with this. @ is one-way binding.
+            */
+            personObject: "="
+        }
+});
+```
+
+**searchresult.html**
+
+```
+<a href="#" class="list-group-item">
+    <!--
+        3. Now we have access to the object with all its properties and
+        methods.
+    -->
+    <h4 class="list-group-item-heading">{{ personObject.name }}</h4>
+    <p class="list-group-item-text">
+        {{ personObject.address }}
+    </p>
+</a>
+```
+
+* Be wary in trying to do too much as far as having the directive affect the scope that's being passed in. If we affect the object too much because it is two way binding it can cause pages to reload in unexpected ways and cause interface issues.
+* Angular is not perfect with making software applications; nothing is.
 
 
 
