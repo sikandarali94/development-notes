@@ -317,6 +317,50 @@ myApp.directive("searchResult", function() {
 
 * Be wary in trying to do too much as far as having the directive affect the scope that's being passed in. If we affect the object too much because it is two way binding it can cause pages to reload in unexpected ways and cause interface issues.
 * Angular is not perfect with making software applications; nothing is.
+* & in AngularJS means this is a function and we can use it to pass a function from a controller's scope to the custom directive where scope is isolated through a custom attribute. Here is an example:
+
+**main.html**
+
+```
+<label>Search</label>
+<input type="text" value="Doe"/>
+<h3>Search Results</h3>
+<div class="list-group">
+    <!--
+        1. person can actually be different than the parameter listed in the
+        function definition in app.js. Angular is just going to look at the
+        function and pass the parameters in the appropriate positions. We
+        can name person aperson and aperson is essentially just a 
+        placeholder.
+    -->
+    <search-result person-object="person" formatted-address-function="formattedAddress(person)"></search-result>
+</div>
+```
+
+**app.js**
+
+```js
+myApp.controller('mainController', ['$scope', function($scope) {
+    $scope.formattedAddress = function(person) {
+        //some function code.
+    };
+}]);
+
+myApp.directive("searchResult", function() {
+    return {
+        restrict: 'AECM',
+        templateUrl: 'directives/searchresult.html',
+        replace: true,
+        scope: {
+            personObject: "=",
+            /*
+                2. formattedAddressFunction is the mo
+            */
+            formattedAddressFunction: "&"
+        } 
+    }
+});
+```
 
 
 
