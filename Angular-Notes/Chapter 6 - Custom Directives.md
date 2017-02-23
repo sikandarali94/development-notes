@@ -354,11 +354,99 @@ myApp.directive("searchResult", function() {
         scope: {
             personObject: "=",
             /*
-                2. formattedAddressFunction is the mo
+                2. formattedAddressFunction is the normalized name for the
+                custom attribute formatted-address-function. The & indicates
+                a function has been passed to the custom attribute and is
+                being now passed to the isolated scope of the custom
+                directive.
             */
             formattedAddressFunction: "&"
         } 
     }
+});
+```
+
+**searchresult.html**
+
+```
+<a href="#" class="list-group-item">
+    <h4 class="list-group-item-heading">{{ personObject.name }}</h4>
+    <p class="list-group-item-text">
+        <!--
+            3. An important thing to note is that we can't just pass
+            properties like only writing personObject here. We have to
+            pass what is called an "object map". The "object map" takes
+            the name of the parameter we defined in the custom attribute
+            as a property/key and the name of the object in the 
+            directive's scope as the value. Essentially an "object map"
+            maps the value to the parameter name. If we had multiple
+            parameters we can separate key/value with a comma. The need
+            to use "object maps" is because the way AngularJS has done
+            references in poking this hole into the isolated scope.    
+        -->
+        {{ formattedAddressFunction({ aperson: personObject }) }}
+    </p>
+</a>
+```
+
+### Repeated Directives
+
+* Here is a way we can repeat directives in AngularJS:
+
+**app.js**
+
+```js
+myApp.controller('mainController', ['$scope', function($scope) {
+    $scope.people = [
+        {
+        name: 'Siky',
+        address: 'First Street'
+        },
+        {
+        name: 'Harry',
+        address: 'Second Street'
+        }
+    ]
+}]);
+```
+
+**main.html**
+
+```
+<label>Search</label>
+<input type="text" value="Doe"/>
+<h3>Search Results</h3>
+<div class="list-group" ng-repeat="person in people">
+    <!--
+        We can even put ng-repeat on the directive rather than making
+        multiple divs. Therefore we will have multiple 
+        <search-result></search-result> directives in a single <div>
+        element.
+    -->
+    <search-result person-object="person" formatted-address-function="formattedAddress(aperson)"></search-result>
+</div>
+```
+
+### Understanding 'Compile'
+
+* **'Compile' and 'Link'**: When building code, the **compiler** converts code to a lower-level language, then the **linker** generates a file the computer will actually interact with. This is very computer science-y terms that are sort of valid, but not familiar to many web developers...and not what AngularJS does. The behavior of custom directives are kind of analogous to compilers and linkers, but not really.
+* Here is how we use the compile behavior in custom directives:
+
+**app.js**
+
+```js
+myApp.directive("searchResult", function() {
+    return {
+        restrict: 'AECM',
+        templateUrl: 'directives/searchresult.html',
+        replace: true,
+        scope: {
+            personObject: "=",
+            formattedAddressFunction: "&"
+        },
+        compile: function(elem, attrs) {
+            console.log('Compiling...');
+            console.log(elem.html());
 });
 ```
 
