@@ -525,5 +525,51 @@ post: function(scope, elements, attrs) {
 }
 ```
 
+* Most likely we will not need to run code in the compile function but just use the post-link function.
+
+### Understanding 'Link'
+
+* The shorthand way of writing compile and only using the post-link is using the link method like this:
+
+```js
+myApp.directive("searchResult", function() {
+    return {
+        restrict:'AECM',
+        templateUrl: 'directives/searchresult.html',
+        replace: true,
+        scope: {
+            personObject: "=",
+            formattedAddressFunction: "&"
+        },
+        link: function(scope, elements, attrs) {
+            //some code
+        }
+    }
+});
+```
+
+### Understanding 'Transclusion'
+
+* Transclusion: Include one document inside another. It means to place a copy of one document at a particular point inside another.
+* Say we include something in our search result like this:
+
+```
+<label>Search</label>
+<input type="text" value="Doe"/>
+<h3>Search Results</h3>
+<div class="list-group">
+    <search-result person-object="person" formatted-address-function="formattedAddress(aperson)"
+        ng-repeat="person in people">
+        <!--
+            We inserted this line but for some reason it doesn't appear
+            on the main page.
+        -->
+        *Search results may not be valid.
+    </search-result>
+</div>
+```
+
+
+
 
 
