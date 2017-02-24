@@ -257,7 +257,7 @@ myApp.directive("searchResult", function() {
 </a>
 ```
 
-* Now that we have poked a text hole. So we can take personName variable and now it is available to us as part of our Model, as part of our scope for our directive, for the searchresult.html View.
+* Now that we have poked a text hole. So we can take `personName` variable and now it is available to us as part of our Model, as part of our scope for our directive, for the searchresult.html View.
 
 * Here is how we pass an object from the controller's Model into the Model of a directive that has an isolated scope:
 
@@ -445,9 +445,84 @@ myApp.directive("searchResult", function() {
             formattedAddressFunction: "&"
         },
         compile: function(elem, attrs) {
+            /*
+                What we have here when we compile is we can gain access to the
+                HTML that defines the View in searchresult.html for the custom
+                directive. Therefore elem contains the View of the custom
+                directive. Compile runs only once.
+            */
             console.log('Compiling...');
             console.log(elem.html());
+            /*
+                Pre-linking and Post-linking run two times because the 
+                ng-repeat loops through two objects items in the people 
+                array. They run first Pre-link then Post-link then Pre-link
+                then Post-link. Each time the directive is looped and 
+                displayed on the screen each directive has its own scope.
+            */
+            return {
+                pre: function(scope, elements, attrs) {
+                    console.log('Pre-linking...');
+                    console.log(elements);
+                },
+                post: function(scope, elements, attrs) {
+                    console.log('Post-linking...');
+                    console.log(elements);
+                }
+            }
+        }
+    }
 });
+```
+
+**main.html**
+
+```
+<label>Search</label>
+<input type="text" value="Doe"/>
+<h3>Search Results</h3>
+<div class="list-group">
+    <search-result person-object="person" formatted-address-function="formattedAddress(aperson)"
+        ng-repeat="person in people">
+    </search-result>
+</div>
+```
+
+* Compile runs once because it defines the HTML of the View, which in this case is searchresult.html. In the compile function we can change the HTML structure if we want to. Then the linking functions \(pre and post\) that we see outputting here, what they do is let us change the HTML and access it as each directive is created through the loop, along the way. In summary compile means we can change our directive on the fly before it gets used, for example in the compile function we can remove the class attribute with standard JS by writing: `elem.removeAttr('class');`. So we are changing the View HTML on the fly before it is used and being bound to the scope and everything else.
+* Link on the other hand is run every time the directive is used over and over again. To explain the difference between pre-link and post-link we have to understand that we can nest directives like this:
+
+```
+<search-result>
+    <search-result></search-result>
+</search-result>
+```
+
+* So AngularJS **compiles** the directive then runs pre-link then looks for any other directives inside and compiles that directive then runs pre-link so on and so forth until it gets all the way to the bottom and figures everything out. It then runs post-link back up the chain of the nested directives. Therefore post-link is safer than pre-link because by time we run post-link we already know what we have to deal with. AngularJS in its documentation has recommended to avoid pre-link. So in return of the compile function we can take out the pre-link function.
+* In:
+
+```js
+/*
+    The template or View is passed to the post-link function in
+    elements and attrs. The Model is passed to the post-link
+    function in scope for that particular instance of the directive.
+    It doesn't matter if we call the parameters something different
+    it passes the scope to the first parameter. Therefore it
+    doesn't examine the names of the parameters and thus isn't
+    dependency injections.
+*/
+post: function(scope, elements, attrs) {
+    console.log('Post-linking...');
+    console.log(scope);
+    console.log(elements);
+    /*
+        Because we get separate scopes and the personObject has
+        different values due to the ng-repeat we can do something
+        like this.
+    */
+    if (scope.personObject.name === 'Siky') {
+        elements.removeAttr('class');
+    }
+}
 ```
 
 
