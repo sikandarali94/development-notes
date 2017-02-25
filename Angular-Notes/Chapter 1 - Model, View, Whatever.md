@@ -19,7 +19,7 @@
 <h1 reply="Hello Back!">Hello World!</h1>
 ```
 
-* reply attribute is therefore known as a custom attribute. It exists in the browser's memory, it is still there in the DOM.
+* `reply` attribute is therefore known as a custom attribute. It exists in the browser's memory, it is still there in the DOM.
 * HTML5 has an official version of this where we add `data-` in front. Here is an example:
 
 ```
