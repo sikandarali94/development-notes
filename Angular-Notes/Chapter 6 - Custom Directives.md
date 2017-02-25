@@ -608,7 +608,31 @@ myApp.directive("searchResult", function() {
 });
 ```
 
+* If we inspect the `*Search results may not be valid` line we get:
 
+```
+<ng-transclude>
+    <span class="ng-scope">
+        *Search results may not be valid.
+    </span>
+</ng-transclude>
+```
+
+* Instead of ng-transclude element we can use an attribute like this:
+
+```
+<small ng-transclude></small>
+```
+
+* We get then in inspect of the `*Search results may not be valid` line:
+
+```
+<small ng-transclude>
+    <span class="ng-scope">
+        *Search results may not be valid.
+    </span>
+</small>
+```
 
 ---
 
