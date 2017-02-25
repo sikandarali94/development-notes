@@ -569,7 +569,48 @@ myApp.directive("searchResult", function() {
 </div>
 ```
 
+* The `*Search results may not be valid` was removed from the DOM because `<search-result></search-result>` is just a placeholder for the contents in searchresult.html and completely replaces the `*Search results may not be valid` line. To include this line as part of the directive is called transclusion and AngularJS provides a directive called `<ng-transclude></ng-transclude>` in order to do transclusion.. Whatever extra content we want to place inside a particular directive AngularJS puts that content inside `<ng-transclude></ng-transclude>`. Here is how we do it:
+
+**searchresult.html**
+
+```
+<a href="#" class="list-group-item">
+    <h4 class="list-group-item-heading">{{ personObject.name }}</h4>
+    <p class="list-group-item-text">
+        {{ formattedAddressFunction({ aperson: personObject }) }}
+    </p>
+    <!--
+        Inside <ng-transclude></ng-transclude> is where the extra content is
+        placed.
+    -->
+    <small><ng-transclude></ng-transclude></small>
+</a>
+```
+
+**app.js**
+
+```js
+myApp.directive("searchResult", function() {
+    return {
+        restrict: 'AECM',
+        templateUrl: 'directives/searchresult.html',
+        replace: true,
+        scope: {
+            personObject: "=",
+            formattedAddressFunction: "&"
+        }
+        /*
+            Be default transclude is false. We need to set it to true in
+            order to do transclusion.
+        */
+        transclude: true
+    }
+});
+```
 
 
 
+---
+
+The main credit for these notes goes to Anthony Alicea. He has a great set of courses which can be found at, [https://www.udemy.com/user/anthonypalicea/](https://www.udemy.com/user/anthonypalicea/)
 
