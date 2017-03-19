@@ -63,5 +63,7 @@ numbers.forEach(adder);
 
 * forEach is better than for loops because it dramatically reduces the code we have to write and thus there is less room for errors.
 
+---
 
+The main credit for these notes goes to Stephen Grider. He has a great set of courses which can be found at, [https://www.udemy.com/user/sgslo/](https://www.udemy.com/user/sgslo/)
 
