@@ -31,5 +31,8 @@ var doubled = numbers.map(function(number) {
 console.log(doubled);
 ```
 
+![](/assets/Screen Shot 2017-03-19 at 7.30.35 am.png)
+
+* 
 
 
