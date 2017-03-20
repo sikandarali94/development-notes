@@ -33,6 +33,41 @@ console.log(doubled);
 
 ![](/assets/Screen Shot 2017-03-19 at 7.30.35 am.png)
 
-* 
+* In the above diagram we take 1 and pass it to the Iterator Function, the Iterator Function multiplies it by two and it returns the number 2. On the second passthrough we pass 2 to the Iterator Function and it does the same thing. We do this for every element in the array. The values the Iterator Function returns is sequentially mapped into the new array.
+
+* If we don't put a return statement in the Iterator Function then the map will return undefined, for example:
+
+```js
+var doubled = numbers.map(function(number) {
+    number * 2;
+};
+//This will log [undefined,undefined,undefined]
+console.log(doubled);
+```
+
+* One of the most common uses of map that we are going to be looking at is kind of collecting properties off of an array of objects. Here is an example:
+
+```js
+/*
+    From here we only want to know the price of each car store it
+    in an array.
+*/
+var cars = [
+    {model: 'Buick', price: 'CHEAP'},
+    {model: 'Camaro', price: 'expensive'}
+];
+
+var prices = cars.map(function(car) {
+    return car.price;
+});
+
+//This will log ["CHEAP", "expensive"]
+console.log(prices);
+```
+
+### Where Map Is Used
+
+* map is one of the most used helpers in front-end development. In many website development projects one of the main tasks is rendering lists of data and therefore map is most helpful for it.
+
 
 
