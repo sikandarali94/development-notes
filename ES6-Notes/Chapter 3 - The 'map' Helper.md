@@ -69,5 +69,7 @@ console.log(prices);
 
 * map is one of the most used helpers in front-end development. In many website development projects one of the main tasks is rendering lists of data and therefore map is most helpful for it.
 
+---
 
+The main credit for these notes goes to Stephen Grider. He has a great set of courses which can be found at, [https://www.udemy.com/user/sgslo/](https://www.udemy.com/user/sgslo/)
 
