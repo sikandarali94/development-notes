@@ -37,8 +37,33 @@ filteredProducts = products.filter(function(product) {
                            value and there is no need to use an if statement.
                        */
                        return product.type === 'fruit';
-                   } 
+                   });
 ```
+
+* Here is an example of writing a complex filter:
+
+```js
+/*
+    We want to write a filter where the type is vegetable, the quantity is greater
+    than 0 and the price is less than 10.
+*/
+var products = [
+    { name: 'cucumber', type: 'vegetable', quantity: 0, price: 1 },
+    { name: 'banana', type: 'fruit', quantity: 10, price: 15 },
+    { name: 'orange', type: 'fruit', quantitiy: 3, price: 5 }
+];
+
+products.filter(function(product) {
+    //This will be true for only the celery.
+    return product.type === 'vegetable'
+           && product.quantity > 0
+           && product.price < 10
+});
+```
+
+### Choosing When To Filter
+
+* filter is great for 
 
 
 
