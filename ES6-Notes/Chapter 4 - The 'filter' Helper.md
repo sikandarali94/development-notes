@@ -63,7 +63,9 @@ products.filter(function(product) {
 
 ### Choosing When To Filter
 
-* filter is great for 
+* filter is great for when we are working with relational data.
 
+---
 
+The main credit for these notes goes to Stephen Grider. He has a great set of courses which can be found at, [https://www.udemy.com/user/sgslo/](https://www.udemy.com/user/sgslo/)
 
