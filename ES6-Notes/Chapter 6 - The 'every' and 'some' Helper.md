@@ -49,7 +49,49 @@ computers.every(function(computer) {
 
 ![](/assets/some helper diagram.png)
 
-* This is similar to every helper except we kind of do an `||` operation between each of them and then produce a final result of either `true` or `false`.
+* This is similar to `every` helper except we kind of do an `||` operation between each of them and then produce a final result of either `true` or `false`.
+* Here is an example of using the `some` helper:
+
+```js
+/*
+    This will return because there is at least one element in the array that
+    satisfies this query. Notice how similar it is to the every helper.
+*/
+computers.some(function(computer) {
+    return computer.ram > 16;
+});
+```
+
+### Every and Some Syntax
+
+* Here is a more interesting use of the `some` and `every` helper:
+
+```js
+/*
+    We want to know if either all of the names have a character length of
+    greater than 4 or any of the names have a character length of greater
+    than 4.
+*/
+var names = [
+    "Alexandria",
+    "Matthew",
+    "Joe"
+];
+
+names.every(function(name) {
+    //This will return false because of "Joe."
+    return name.length > 4;
+});
+
+names.some(function(name) {
+    //This will return true because of "Alexandria" and "Matthew."
+    return name.length > 4;
+});
+```
+
+### Every and Some In Practice
+
+* `every` and `some` are great for data validation and form validation.
 
 
 
