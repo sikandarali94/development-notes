@@ -2,11 +2,50 @@
 
 ### A Little Every and a Lot of Some
 
-* every and some are very similar in how they work.
+* `every` and `some` are very similar in how they work.
 
 ![](/assets/Screen Shot 2017-03-21 at 8.30.44 am.png)
 
-* For every element
+* For every element in the array we are going to take an element, we are going to pass it to our Iterator Function and that Iterator Function will return a boolean value. Once all the boolean values are returned we are going to look at all the booleans that have been returned and kind of do an `&&` operation between each of them and then produce a final result of either `true` or `false`.
+* This is how we can demonstrate the helper using a typical for loop:
 
+```js
+var computers = [
+    { name: 'Apple', ram: 24 },
+    { name: 'Compaq', ram: 4 },
+    { name: 'Acer', ram: 32 }
+];
 
+/*
+    This boolean determines whether all computers can run the program that
+    requires at least 16gb.
+*/
+var allComputersCanRunProgram = true;
+/*
+    This boolean determines whether any of the computers can run the program
+    that requires 16gb ram.
+*/
+var onlySomeComputersCanRunProgram = false;
+
+for (var i = 0; i < computers.length; i++) {
+    var computer = computers[i];
+    if (computer.ram < 16) {
+        allComputersCanRunProgram = false;
+    }
+}
+```
+
+* Here is an example of using the `every` helper:
+
+```js
+computers.every(function(computer) {
+    /*
+        This will return false because not all the elements in the array
+        satisfy this query.
+    */
+    return computer.ram > 16;
+});
+```
+
+![](/assets/some helper diagram.png)
 
