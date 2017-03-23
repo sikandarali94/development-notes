@@ -49,3 +49,7 @@ computers.every(function(computer) {
 
 ![](/assets/some helper diagram.png)
 
+* This is similar to every helper except we kind of do an `||` operation between each of them and then produce a final result of either `true` or `false`.
+
+
+
