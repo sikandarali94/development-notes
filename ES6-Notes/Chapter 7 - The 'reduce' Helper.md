@@ -53,5 +53,7 @@ primaryColors.reduce(function(previous, primaryColor) {
 
 * Many people say reduce is for summing up numbers but it can be used for a whole lot more.
 
+---
 
+The main credit for these notes goes to Stephen Grider. He has a great set of courses which can be found at, [https://www.udemy.com/user/sgslo/](https://www.udemy.com/user/sgslo/)
 
