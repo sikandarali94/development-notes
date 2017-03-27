@@ -35,5 +35,7 @@ hourlyWage = 45;
 * `const` and `let` makes the code name legible to read and thus can be understood better. There are many technical opinions but this is the most basic.
 * By changing `var` to either `const` or `let` is called refactoring code.
 
+---
 
+The main credit for these notes goes to Stephen Grider. He has a great set of courses which can be found at, [https://www.udemy.com/user/sgslo/](https://www.udemy.com/user/sgslo/)
 
