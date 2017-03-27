@@ -79,7 +79,7 @@ const team = {
                 This gives the error: Cannot read property 'teamName'
                 of undefined.
             */
-            return '${member} is on team ${this.teamName}';
+            return `${member} is on team ${this.teamName}`;
         });
     }
 };
@@ -89,7 +89,27 @@ const team = {
 
 ![](/assets/Iterator Function Map Helper Diagram.png)
 
-* The Iterator Function
+* The Iterator Function passed into the `map` helper is essentially being passed somewhere into the code base that we don't know about; it is being passed into the ether. Therefore the value of this is lost; so this is not equal to the constant `team`.
+* The whole purpose of the fat arrow function is to solve the above issue elegantly.
+* Here is the code that solves the above issue:
 
+```js
+const team = {
+    members: ['Jane', 'Bill'],
+    teamName: 'Super Squad',
+    teamSummary: function() {
+        return this.members.map((member) => {
+            return `${member} is on team ${this.teamName}`;
+        });
+    }
+};
+team.teamSummary();
+```
 
+* The word `lexical` means the placement of this team depends on how it is interpreted or how it is evaluated. So `lexical` `this` with fat arrow functions means that depending upon where we are putting the keyword this it will change when we are using a fat arrow function. When we use a fat arrow function and make reference to this inside of it this is automatically set equal to this in the surrounding context which in this case is the constant `team`.
+* In short fat arrow functions make the value of this behave as we would expect and hope it to. By default Javascript context works exactly opposite the manner in which we really want and expect it to.
+
+---
+
+The main credit for these notes goes to Stephen Grider. He has a great set of courses which can be found at, [https://www.udemy.com/user/sgslo/](https://www.udemy.com/user/sgslo/)
 
