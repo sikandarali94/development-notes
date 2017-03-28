@@ -16,5 +16,7 @@
 function makeAjaxRequest(url, method = 'GET') {}
 ```
 
+---
 
+The main credit for these notes goes to Stephen Grider. He has a great set of courses which can be found at, [https://www.udemy.com/user/sgslo/](https://www.udemy.com/user/sgslo/)
 
