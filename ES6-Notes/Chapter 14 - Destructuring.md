@@ -42,5 +42,101 @@ const { amount } = expense;
 const { type, amount } = expense;
 ```
 
+### Destructuring Arguments Object
+
+* Destructuring deserves its own book because of the many ways to make use of destructuring. 
+* We can use destructuring to pull properties off an object that are passed to functions. Here is an example of using ES5 to pull properties off an object without destructuring:
+
+```js
+var savedFiled = {
+    extension: 'jpg',
+    name: 'repost',
+    size: 14040
+};
+
+function fileSummary(file) {
+    return 'The file ' + file.name + '.' + file.extension + ' is of the size ' + file.size;
+}
+
+fileSummary(savedFiled);
+```
+
+* Here is how we reduce the code using ES6 destructuring:
+
+```js
+const savedFiled = {
+    extension: 'jpg',
+    name: 'repost',
+    size: 14040
+};
+
+/*
+    Here destructuring let us pull the properties off an object with same
+    variable names and assign them to the variables with the same name as
+    the property names.
+*/
+function fileSummary({ name, extension, size }) {
+    return `The file ${name}.${extension} is of size ${size}`;
+}
+
+fileSummary(savedFiled);
+```
+
+* If we wanted to pull from the arguments the data from this function call: `fileSummary(savedFiled, { color: 'red' });` we would have to do this: `function fileSummary({ name, extension, size }, { color }){}`.
+
+### Destructuring Arrays
+
+* With destructuring we are not limited to pulling properties from an object; we can also pull values from an array using destructuring. If destructuring objects is all about pulling properties from objects then destructuring arrays is all about pulling individual elements off of an array. Here is an example of destructuring arrays:
+
+```js
+const companies = [
+    'Google',
+    'Facebook',
+    'Uber'
+];
+
+/*
+    Note around 'name' are square brackets.
+*/
+const [name] = companies;
+
+/*
+    This will log 'Google' because with destructuring array the individual
+    elements are assigned to variables in the order they are written in the
+    array originally.
+*/
+console.log(name);
+```
+
+* If we were to write for the above: `const [name, name2, name3] = companies;` then `name` would be `'Google'`, `name2` would be `'Facebook'`, and `name3` would be `'Uber'`. There is nothing wrong with adding `name4` to the destructuring array expression; in this case `name4` will be `undefined` but writing `name4` will not give an error.
+* Here is an interesting scenario. In this code:
+
+```js
+const companies = [
+    'Google',
+    'Facebook',
+    'Uber'
+];
+
+/*
+    The variable 'length' will be assigned 3 because the curly braces literally
+    pull off the 'length' property from the companies which has obviously 3 as
+    the 'length' property value because companies array has 3 element inside it.
+*/
+const { length } = companies;
+```
+
+* We can use the spread operator within destructuring. Here is an example:
+
+```js
+/*
+    'name' would be assigned 'Google' and rest would be assigned the array
+    ['Facebook', 'Uber'].
+*/
+const [ name, ...rest ] = companies;
+```
+
+
+
 
 
