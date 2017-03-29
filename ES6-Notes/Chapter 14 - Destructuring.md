@@ -136,7 +136,51 @@ const { length } = companies;
 const [ name, ...rest ] = companies;
 ```
 
+### Destructuring Arrays and Objects \*At the Same Time\*
 
+* One aspect of destructuring that is often overlooked is destructuring arrays and object at the same time. Here is an example:
+
+```js
+/*
+    'location' stores 'Mountain View'. Here we destructured the array first and
+    so the square brackets are first encased. The destructuring of the array
+    returns: { name: 'Google', location: 'Mountain View' }. Then we destructured
+    at the same time the object  along with the variable name 'location' by
+    encasing the variable name 'location' with curly brackets inside the square
+    brackets and thus the 'location' variable stores 'Mountain View'.    
+*/
+const companies = [
+    { name: 'Google', location: 'Mountain View' },
+    { name: 'Facebook', location: 'Menlo Park' },
+    { name: 'Uber', location: 'San Franciscoe' }
+];
+
+const [{ location }] = companies;
+```
+
+* Here is a more challenging example of destructuring arrays and objects at the same time:
+
+```js
+//Here we want to grab 'Mountain View'.
+const Google = {
+    locations: ['Mountain View', 'New York', 'London']
+};
+
+/*
+    The constant 'location' will store 'Mountain View'. First we destructured the
+    object Google with the curly braces and the 'locations' property key 
+    ( 'const{locations} = Google ) which returns the array
+    [ 'Mountain View', 'New York', 'London' ]. Then we provide directions for the
+    destructuring with the colon (:) and then saying to grab the first element in
+    the array and assign it to 'location' on the right hand side of the colon
+    using the square brackets and the variable name.
+*/
+const { locations: [ location ] } = Google;
+```
+
+### So...When To Use Destructuring?
+
+* With destructuring we can pass arguments into a function without remembering the order of the arguments. Here is an example of passing arguments into function without destructuring:
 
 
 
