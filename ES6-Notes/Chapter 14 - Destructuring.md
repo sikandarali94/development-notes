@@ -182,5 +182,45 @@ const { locations: [ location ] } = Google;
 
 * With destructuring we can pass arguments into a function without remembering the order of the arguments. Here is an example of passing arguments into function without destructuring:
 
+```js
+function signup(username, password, email, dateOfBirth, city) {}
+
+/*
+    The issue here is that we have to remember the order of the arguments and
+     if we have long lines of code this can be tedious and confusing.
+*/
+signup('username', 'password', 'example@email.com', '1,1,1916', 'Berlin');
+```
+
+* The issue of remembering the order of the arguments can be solved with destructuring. Here is an example:
+
+```js
+/*
+    It doesn't matter in the order which we destructure and thus this
+    creates ease of mind and flexibility writing code.
+*/
+function signup({email, password, dateOfBirth, city, username}){}
+
+/*
+    For destructuring we should include our argument as properties within
+    objects.
+*/
+const user = {
+    username: 'myname',
+    password: 'mypassword',
+    email: 'myemail@example.com',
+    dateOfBirth: '1/1/1900',
+    city: 'Berlin'
+}
+
+/*
+    We simply drop the object into our function and destructuring take
+    care of the rest.
+*/
+signup(user);
+```
+
+* Say we want to map out
+
 
 
