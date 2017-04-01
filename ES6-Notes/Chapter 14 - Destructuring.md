@@ -220,7 +220,23 @@ const user = {
 signup(user);
 ```
 
-* Say we want to map out
+* Say we want to map out a series of pairs of points into an array of object where each point is mapped into an object like this: `{ x : point1, y : point2 }`. Here is how we do it:
 
+```js
+const points = [
+    [4,5],
+    [10,1],
+    [0,40]
+];
 
+//We destructure the array directly in the argument.
+points.map(([x,y]) => {
+    //This is taking advantage of literal objects.
+    return { x, y };
+});
+```
+
+---
+
+The main credit for these notes goes to Stephen Grider. He has a great set of courses which can be found at, [https://www.udemy.com/user/sgslo/](https://www.udemy.com/user/sgslo/)
 
