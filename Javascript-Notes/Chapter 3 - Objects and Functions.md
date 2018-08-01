@@ -277,7 +277,7 @@ console.log(d);
 
 ### Objects, Functions and 'this'
 
-![](/assets/ExecutionContextThisVariable Diagram.jpg)
+![](/assets/ExecutionContextThisVariableDiagram.jpg)
 
 * When you simply create a function like this in the Global lexical environment: `function a() { console.log(this); }`, and we invoke the function the `this` variable \(or keyword\) will point to the Global object which is called `window`. This is even true for an anonymous function like this, where lexical environment is Global:
 
