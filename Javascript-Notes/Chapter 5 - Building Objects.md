@@ -38,7 +38,7 @@ function Person(firstname, lastname) {
 * When we type in the console `john.__proto__` \(John is an object created using a function constructor in the last example with the `Person()` constructor\), this will give us an empty called `Person` like this: `Person {}`.
 * The prototype of a function is not the function's prototype but it is the prototype of an object that is created using that function as a constructor. Every function has a prototype property that starts off its life as an empty object. Unless we are using the function as a constructor the prototype \(empty obj\) just hangs out and is never used. As soon as we use the new operator to invoke a function then it means something. It sits there and lives only for when we are using a function to construct an object as a function constructor. Here is a visual:
 
-![](/assets/Function Constructor Prototype Property Diagram.png)
+![](/assets/FunctionConstructorPrototypePropertyDiagram.png)
 
 * Regarding 'prototype': It is terribly named because this is not the prototype of the function but is a property used when the function is a constructor to set the prototype of an object created using this function constructor.
 * Therefore, if we use the last topic's code and write:
