@@ -35,7 +35,7 @@ a = b = c;
 */
 ```
 
-![](/assets/Operator Precedence Table.jpg)
+![](/assets/OperatorPrecedenceTable.jpg)
 
 ### Coercion \(Conceptual\)
 
@@ -49,7 +49,7 @@ a = b = c;
 * Coercion, although powerful, can be dangerous. For example, `false == 0`, will give us `true` and this is not what we want and can cause bugs. However, when we write `null == 0` it gives us `false` even though we learnt that `null` being coerced into a number will give us `0`, and in this case it didn't do that. This is one of the negative sides to Javascript. When we write `"" == 0` it gives us true, and when we write `"" == false` it also gives us `true`. Another weird thing is when we write `null < 1` it gives us `true` even though when we write `null == 0` it gives us `false`. This makes our code difficult to anticipate.
 * Therefore, it is recommended to use strict equality \( `===` \). This compares two values but doesn't try to coerce them. This is a life saver! Similarly we have strict inequality \( `!==` \). Therefore don't use == unless we consciously want coercion or we definitely know we are comparing same value types and coercion will definitely not happen. Use, however, `===` and `!==` by default!
 
-![](/assets/Sameness Comparison Table.jpg)
+![](/assets/SamenessComparisonTable.jpg)
 
 ### Existence and Booleans
 
@@ -117,7 +117,7 @@ function greet(name) {
 * When we include multiple script files in HTML using &lt;script&gt; Javascript doesn't create separate execution contexts for the script files, rather it stacks the content of the files on top of one another and executes them as they were a single file.
 * If we have the same variable name across two js files that we included in our HTML, the variable will behave on how the code is run if the two js files were stacked on top of one another, and run as a single js file. For example:
 
-![](/assets/JS Files Stacked Diagram.jpg)
+![](/assets/JSFilesStackedDiagram.jpg)
 
 * This can be fixed with the coercion trick: `window.libraryName = window.libraryName || "Lib 2";` in lib2.js.
 * That coersion trick is found in a lot of frameworks. This in itself could cause a lot of errors, however, it is likely the developer's fault for colliding with the name, that he or she is using.
