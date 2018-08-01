@@ -25,7 +25,7 @@
 
 * The execution context is created in two phases. The first phase is called the creation phase; it sets up the Global Object, the 'this' variable, the Outer Environment, and setup memory space for variables and functions \(hoisting\).
 
-![](/assets/Creation Phase Diagram.png)
+![](/assets/CreationPhaseDiagram.png)
 
 * A function in its **entirety** is placed into the memory space, including the code inside it during the creation phase. During the creation phase variable names are placed into the memory space; it creates a placeholder for the variable called **undefined**. It is only during the execution phase that variable assignments are placed into memory.
 
@@ -49,7 +49,7 @@
 * **Invocation**: It just means running a function in Javascript, this is done by using a parentheses, \(\).
 * When you invoke a function in Javascript a new Execution Context is created and put on top of the stack.
 
-![](/assets/Execution Stack Diagram.png)
+![](/assets/ExecutionStackDiagram.png)
 
 * When `b` is finished it will **pop off** the stack, then `a` will run and finish then pop off the stack, and then finally the Global will run and therefore the execution stack will be complete. This is all during the execution phase.
 
@@ -137,12 +137,12 @@ if (a > b) {
 * **Asynchronous**: More than one at a time.
 * Javascript is synchronous, however the Javascript engine does not exist by itself. The engine exists within the browser. Within the browser the rendering engine, the HTTP request, and so forth are all running at the same time. While the Javascript engine is synchronous the browser is asynchronous.
 
-![](/assets/The Browser Diagram.jpg)
+![](/assets/TheBrowserDiagram.jpg)
 
 * When we make an asynchronous callback what the Javascript engine is doing is telling the browser to run another program within itself while the Javascript engine keeps running. Effectively the browser is running things asynchronously while the Javascript engine remains synchronous.
 * Apart from the execution stack Javascript also has an event queue.
 
-![](/assets/Execution Stack and Event Queue Diagram.jpg)
+![](/assets/ExecutionStackAndEventQueueDiagram.jpg)
 
 * When the execution stack is empty, meaning it has run all the execution contexts, it then looks at the event queue to see if any event has been triggered. If it has then it executes those functions that are associated after the event has been triggered. The browser is the one that is putting the events asynchronously on the event queue, therefore, when the execution stack is complete Javascript then checks the event queue and runs the associated functions synchronously and so forth.
 * **Event Loop**: The continuous check that Javascript does for something to be added to the event queue after the execution stack has been completed.
