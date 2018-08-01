@@ -15,7 +15,7 @@
 
 * In Javascript one of the base execution contexts is the **Global execution context**. This **execution context** creates a Global Object and the variable 'this.
 
-![](/assets/Global Execution Diagram Context.png)
+![](/assets/GlobalExecutionDiagramContext.png)
 
 * The 'this' variable refers to the Global Object.
 * In the browser the Global Object is the window object.
