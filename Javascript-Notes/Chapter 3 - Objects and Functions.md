@@ -367,7 +367,7 @@ var arr = [
 * In frameworks we'll come across arguments quite often in the source code.
 * When a function is run it creates the execution context as shown below:
 
-![](/assets/Execution Context Functions Diagram.jpg)
+![](/assets/ExecutionContextFunctionsDiagram.jpg)
 
 * **Arguments**: The parameters we pass to a function. Javascript gives us a keyword of the same name which contains them all, like this:
 
@@ -528,7 +528,7 @@ function(name) {
 * What goes behind the scenes of an IIFE is that during the creation phase a Global Execution Context is created, but because the IIFE is an expression the function expression is not placed in the Global Execution Context. It is only during the execution phase when it runs the IIFE that the function is placed in the Global Execution Context. We know when a function is run a new Execution Context is created and is placed at the top of the Execution Stack. Any variables declared in the anonymous function is not placed into the Global Execution Context but the Execution Context of the anonymous function. That is what makes this very handy.
 * Here is a visual representation of what we discussed above:
 
-![](/assets/IIFE Execution Context Diagram.png)
+![](/assets/IIFEExecutionContextDiagram.png)
 
 * The reason we mentioned above -- about what makes an IIFE handy when the variables inside it are not placed in the Global Execution Context -- is because if we have two script files stacked in HTML atop one another we won't have a clash of variables are not placed inside the Global Execution Context. This makes code safe.
 
