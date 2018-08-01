@@ -10,7 +10,7 @@
 
 * All objects in Javascript, and that includes functions, have a **prototype** property. This property is just a reference to another object. It's an object that stands on its own. Here is a visual:
 
-![](/assets/Prototype Chain Diagram.png)
+![](/assets/PrototypeChainDiagram.png)
 
 * Regarding Prop2, when we call: obj.Prop2 it looks for that property in obj and it doesn't find it. It then looks for Prop2 in the prototype object \(proto {}\) It finds it in this this case. Regarding Prop3, when we call: obj.Prop3 it does the same thing in finding it as it did with Prop2, because a prototype can have another prototype and so forth and Javascript looks from properties down these prototypes that are linked via the Prototype Chain.
 * It looks like Prop2 is on our obj but its actually on our object's prototype. The same is for Prop3. This way down in searching for properties in the prototype is called the Prototype Chain.
