@@ -5,7 +5,7 @@
 * In Javascript objects and functions are very mush related and should be learned together and not separately.
 * An object can have properties and methods. So an object can have a primitive \(property\), an object can have another object \(property\), and an object can have a function \(method\).
 
-![](/assets/Object Diagram.png)
+![](/assets/ObjectDiagram.png)
 
 * Concerning 0x001, 0x002, 0x003, 0x004 an object will have an address in memory and it will have references to different properties and methods.
 * In this example:
@@ -139,7 +139,7 @@ JSON.parse('{"firstname": "Mary", "isAProgrammer":true}');
 * **First Class Functions**: Everything you can do with other types you can do with functions. That means you can assign them to variables, pass them around, or create them on the fly.
 * A function is a special type of object, which means you can attach a primitive, an object, or even another function:
 
-![](/assets/Function As Object Diagram.png)
+![](/assets/FunctionAsObjectDiagram.png)
 
 * Regarding '"Invocable" \(\)', it is special for functions because a function can be called. Regarding 'CODE', it is a special property. Therefore the code that we write is just another property. Regarding 'NAME', it is a special property of a function.
 * To prove functions are objects, here is an example:
@@ -159,7 +159,7 @@ greet.language = 'english';
 
 * Here is a visual representation of what we did above:
 
-![](/assets/Function Invocation Diagram.png)
+![](/assets/FunctionInvocationDiagram.png)
 
 ### Function Statements and Function Expressions
 
@@ -187,7 +187,7 @@ var anonymousGreet = function() {
 }
 ```
 
-![](/assets/Anonymous Function Diagram.png)
+![](/assets/AnonymousFunctionDiagram.png)
 
 * Regarding 'CODE' to invoke this property of the anonymous function we write: anonymousGreet\(\); Regarding 'NAME' since we already have a variable pointing to the address in memory of where the object is located we don't need a name for the function.
 * Because functions are objects we can pass them as parameters into other functions. Here is an example:
@@ -220,9 +220,9 @@ log(function () {
 
 * When we talk about by value and by reference we are both talking about variables.
 
-![](/assets/By Value Diagram.png)
+![](/assets/ByValueDiagram.png)
 
-![](/assets/By Reference Diagram.png)
+![](/assets/ByReferenceDiagram.png)
 
 * Here is a code example of **by-value**:
 
@@ -277,7 +277,7 @@ console.log(d);
 
 ### Objects, Functions and 'this'
 
-![](/assets/Execution Context ('this' variable) Diagram.jpg\)
+![](/assets/ExecutionContextThisVariable Diagram.jpg)
 
 * When you simply create a function like this in the Global lexical environment: `function a() { console.log(this); }`, and we invoke the function the `this` variable \(or keyword\) will point to the Global object which is called `window`. This is even true for an anonymous function like this, where lexical environment is Global:
 
@@ -573,11 +573,11 @@ sayHi('Tony');
 
 * When an execution context has popped off the execution stack the memory space of the variable environment for that execution context still exists. Eventually Javascript will clear that memory through a process known as garbage collection, but for our purposes in the running code it still exists. In the code above when greet execution context has popped off the execution stack the whattosay variable still exists in memory. The interesting thing is that when we invoke the function expression that sayHi points to, within its outer environment the reference to the whattosay variable still exists. So when we mention the whattosay variable within the anonymous function, that sayHi points to, and it doesn't have the variable within its variable environment then it goes up the scope chain and finds whattosay within the references inside its outer environment. In this way we say the Execution Context has **closed in** its outer variable, the variables it would have a reference to anyway even though the execution context has gone. This phenomenon is known as a closure. Here is a visual representation of this:
 
-![](/assets/Closure Diagram.png)
+![](/assets/ClosureDiagram.png)
 
 * The above representation is after the greet\(\) execution context has popped off and the anonymous function that sayHi points to is invoked. This closure is created. This was the representation in the beginning:
 
-![](/assets/Closure Beginning Diagram.png)
+![](/assets/ClosureBeginningDiagram.png)
 
 ### Understanding Closures \(Part 2\)
 
